@@ -26,7 +26,9 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      # `npm install` rather than `npm ci`: a lockfile made on Windows lacks some
+      # Linux-only optional packages, which makes `npm ci` refuse to run.
+      - run: npm install --no-audit --no-fund
       # Pull the latest game log. If GitHub is having a moment, build with the committed copy.
       - run: npm run sync-reviews || echo "Review sync failed; using committed data"
       - run: npm run build
