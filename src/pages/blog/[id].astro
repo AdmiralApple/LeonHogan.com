@@ -1,0 +1,87 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPosts } from '../../lib/games';
+import { formatDate } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post, i) => ({
+    params: { id: post.id },
+    props: { post, newer: posts[i - 1], older: posts[i + 1] },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+---
+
+<Base title={d.title} description={d.description}>
+  <article class="wrap section">
+    <header>
+      <a class="more-link back" href="/blog/">← Blog</a>
+      <h1>{d.title}</h1>
+      <p class="meta">
+        <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
+        {d.updated && <span>· updated {formatDate(d.updated)}</span>}
+        {d.tags.map((t) => <span class="pill">{t}</span>)}
+      </p>
+    </header>
+    <div class="prose"><Content /></div>
+
+    <nav class="pager" aria-label="More posts">
+      {older ? <a href={`/blog/${older.id}/`}><span>← Older</span>{older.data.title}</a> : <span></span>}
+      {newer && <a class="newer" href={`/blog/${newer.id}/`}><span>Newer →</span>{newer.data.title}</a>}
+    </nav>
+  </article>
+</Base>
+
+<style>
+  header,
+  .prose,
+  .pager {
+    max-width: 68ch;
+    margin-inline: auto;
+  }
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+  .back::after {
+    content: none;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    font: 600 0.82rem/1 var(--font-mono);
+    color: var(--ink-faint);
+    padding-bottom: 1.6rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+  .pager a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-decoration: none;
+    font: 700 1.05rem/1.3 var(--font-display);
+  }
+  .pager a span {
+    font: 600 0.75rem/1 var(--font-mono);
+    color: var(--ink-faint);
+  }
+  .pager .newer {
+    text-align: right;
+  }
+</style>

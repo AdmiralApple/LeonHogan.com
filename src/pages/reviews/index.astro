@@ -1,0 +1,363 @@
+---
+import Base from '../../layouts/Base.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import { getReviews, played as getPlayed, rated } from '../../lib/reviews';
+import { scoreBand } from '../../site';
+
+const all = await getReviews();
+const played = getPlayed(all);
+const scored = rated(all);
+const backlog = all.filter((r) => r.status === 'Plan to').sort((a, b) => a.title.localeCompare(b.title));
+const avg = scored.reduce((s, r) => s + (r.rating ?? 0), 0) / Math.max(scored.length, 1);
+const tens = scored.filter((r) => r.rating === 10);
+
+const statuses = ['Completed', 'Playing', 'On Hold', 'Dropped'] as const;
+const counts = Object.fromEntries(statuses.map((s) => [s, played.filter((r) => r.status === s).length]));
+
+// Score distribution 0–10 for the little histogram.
+const dist = Array.from({ length: 11 }, (_, i) => scored.filter((r) => r.rating === i).length);
+const peak = Math.max(...dist, 1);
+---
+
+<Base title="Game reviews" description={`Every game Leon has played: ${played.length} scored, with short reviews.`}>
+  <div class="wrap section">
+    <p class="eyebrow">The game log</p>
+    <h1>Reviews</h1>
+    <p class="muted intro">
+      Every game I’ve played, with a score out of 10 and a few honest words. Scores are about how much I enjoyed it,
+      not some objective truth.
+    </p>
+
+    <div class="overview">
+      <dl class="figs">
+        <div><dt>Played</dt><dd>{played.length}</dd></div>
+        <div><dt>Average</dt><dd>{avg.toFixed(1)}</dd></div>
+        <div><dt>Perfect 10s</dt><dd>{tens.length}</dd></div>
+        <div><dt>Backlog</dt><dd>{backlog.length}</dd></div>
+      </dl>
+      <figure class="hist" aria-label="Score distribution">
+        <div class="bars">
+          {
+            dist.map((n, i) => (
+              <button
+                type="button"
+                class={`bar ${scoreBand(i)}`}
+                data-score={i}
+                style={`--v:${n / peak}`}
+                title={`${n} game${n === 1 ? '' : 's'} scored ${i}`}
+                aria-label={`Show ${n} games scored ${i}`}
+              >
+                <span class="n">{n || ''}</span>
+              </button>
+            ))
+          }
+        </div>
+        <div class="axis">{dist.map((_, i) => <span>{i}</span>)}</div>
+        <figcaption>Score distribution · click a bar to filter</figcaption>
+      </figure>
+    </div>
+
+    <div class="controls">
+      <div class="tabs" role="group" aria-label="Filter by status">
+        <button type="button" data-status="all" aria-pressed="true">All <span>{played.length}</span></button>
+        {
+          statuses
+            .filter((s) => counts[s] > 0)
+            .map((s) => (
+              <button type="button" data-status={s} aria-pressed="false">
+                {s} <span>{counts[s]}</span>
+              </button>
+            ))
+        }
+      </div>
+      <div class="right">
+        <label class="visually-hidden" for="q">Search games</label>
+        <input id="q" type="search" placeholder="Search games…" autocomplete="off" />
+        <label class="visually-hidden" for="sort">Sort</label>
+        <select id="sort">
+          <option value="date">Newest</option>
+          <option value="high">Highest score</option>
+          <option value="low">Lowest score</option>
+          <option value="az">A → Z</option>
+        </select>
+      </div>
+    </div>
+    <p class="result muted" id="result" aria-live="polite"></p>
+
+    <div class="grid" id="reviews">{played.map((r) => <ReviewCard review={r} />)}</div>
+    <p class="empty muted" id="empty" hidden>No games match that. Try a different search.</p>
+
+    {
+      backlog.length > 0 && (
+        <section class="backlog" id="backlog">
+          <h2>Up next</h2>
+          <p class="muted">Games on my list that I haven’t got to yet. Recommendations welcome.</p>
+          <ul>
+            {backlog.map((r) => (
+              <li>{r.title}</li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<script>
+  const grid = document.getElementById('reviews')!;
+  const cards = Array.from(grid.querySelectorAll<HTMLElement>('.review'));
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.tabs button');
+  const bars = document.querySelectorAll<HTMLButtonElement>('.bars .bar');
+  const q = document.getElementById('q') as HTMLInputElement;
+  const sort = document.getElementById('sort') as HTMLSelectElement;
+  const empty = document.getElementById('empty')!;
+  const result = document.getElementById('result')!;
+
+  let status = 'all';
+  let score: string | null = null;
+
+  function apply() {
+    const term = q.value.trim().toLowerCase();
+    let shown = 0;
+    for (const c of cards) {
+      const ok =
+        (status === 'all' || c.dataset.status === status) &&
+        (score === null || c.dataset.rating === score) &&
+        (!term || c.dataset.title!.includes(term));
+      c.hidden = !ok;
+      if (ok) shown++;
+    }
+    empty.hidden = shown > 0;
+    const parts = [];
+    if (status !== 'all') parts.push(status.toLowerCase());
+    if (score !== null) parts.push(`scored ${score}`);
+    if (term) parts.push(`matching “${q.value.trim()}”`);
+    result.textContent = parts.length ? `${shown} game${shown === 1 ? '' : 's'} ${parts.join(', ')}` : '';
+  }
+
+  function reorder() {
+    // Unscored games always sink to the bottom.
+    const r = (c: HTMLElement, missing: number) => (c.dataset.rating ? Number(c.dataset.rating) : missing);
+    const by: Record<string, (a: HTMLElement, b: HTMLElement) => number> = {
+      date: (a, b) => b.dataset.date!.localeCompare(a.dataset.date!),
+      high: (a, b) => r(b, -1) - r(a, -1) || b.dataset.date!.localeCompare(a.dataset.date!),
+      low: (a, b) => r(a, 99) - r(b, 99) || b.dataset.date!.localeCompare(a.dataset.date!),
+      az: (a, b) => a.dataset.title!.localeCompare(b.dataset.title!),
+    };
+    cards.sort(by[sort.value]).forEach((c) => grid.appendChild(c));
+  }
+
+  tabs.forEach((t) =>
+    t.addEventListener('click', () => {
+      status = t.dataset.status!;
+      tabs.forEach((b) => b.setAttribute('aria-pressed', String(b === t)));
+      apply();
+    }),
+  );
+  bars.forEach((b) =>
+    b.addEventListener('click', () => {
+      score = score === b.dataset.score ? null : b.dataset.score!;
+      bars.forEach((x) => x.classList.toggle('dim', score !== null && x.dataset.score !== score));
+      apply();
+    }),
+  );
+  q.addEventListener('input', apply);
+  sort.addEventListener('change', reorder);
+</script>
+
+<style>
+  .intro {
+    max-width: 60ch;
+    font-size: 1.1rem;
+  }
+  .overview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 20px;
+    margin: 2rem 0;
+  }
+  .figs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .figs > div {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .figs > div:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+  .figs > div:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+  .figs dt {
+    font: 600 0.68rem/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.45rem;
+  }
+  .figs dd {
+    margin: 0;
+    font: 800 2rem/1 var(--font-display);
+  }
+  .hist {
+    margin: 0;
+    padding: 16px 18px 12px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+  }
+  .bars,
+  .axis {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 5px;
+  }
+  .bars {
+    height: 120px;
+    margin-top: auto;
+    padding-top: 16px;
+    grid-template-rows: 100%;
+    align-items: end;
+  }
+  .bar {
+    --c: var(--ink-faint);
+    position: relative;
+    height: calc(max(var(--v), 0.02) * 100%);
+    min-height: 3px;
+    border: 0;
+    padding: 0;
+    border-radius: 4px 4px 1px 1px;
+    background: var(--c);
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.15s ease;
+  }
+  .bar:hover {
+    transform: scaleY(1.03);
+    transform-origin: bottom;
+  }
+  .bar.great { --c: var(--great); }
+  .bar.good { --c: var(--good); }
+  .bar.meh { --c: var(--meh); }
+  .bar.bad { --c: var(--bad); }
+  .bar.dim {
+    opacity: 0.25;
+  }
+  .bar .n {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    padding-bottom: 2px;
+    font: 700 0.66rem/1 var(--font-mono);
+    color: var(--ink-soft);
+    text-align: center;
+  }
+  .axis {
+    margin-top: 6px;
+    font: 600 0.7rem/1 var(--font-mono);
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  figcaption {
+    margin-top: 10px;
+    font: 500 0.72rem/1 var(--font-mono);
+    color: var(--ink-faint);
+  }
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    position: sticky;
+    top: 64px;
+    z-index: 10;
+    padding-block: 12px;
+    background: var(--bg);
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .tabs button {
+    font: 600 0.88rem/1 var(--font-body);
+    padding: 0.6em 0.95em;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .tabs button span {
+    font: 600 0.75em var(--font-mono);
+    opacity: 0.7;
+  }
+  .tabs button[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .right {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  input,
+  select {
+    font: 500 0.92rem/1 var(--font-body);
+    padding: 0.6em 0.9em;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    color: var(--ink);
+  }
+  input {
+    width: min(240px, 60vw);
+  }
+  .result {
+    min-height: 1.4em;
+    font: 500 0.82rem/1.4 var(--font-mono);
+    margin: 4px 0 14px;
+  }
+  .empty {
+    padding: 40px 0;
+    text-align: center;
+  }
+  .backlog {
+    margin-top: clamp(48px, 8vw, 80px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  .backlog ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0 0;
+    columns: 4 200px;
+    column-gap: 24px;
+  }
+  .backlog li {
+    break-inside: avoid;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 0.95rem;
+    text-transform: capitalize;
+  }
+  @media (max-width: 760px) {
+    .overview {
+      grid-template-columns: 1fr;
+    }
+    .controls {
+      position: static;
+    }
+  }
+</style>

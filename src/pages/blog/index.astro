@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getPosts } from '../../lib/games';
+import { formatDate } from '../../site';
+
+const posts = await getPosts();
+---
+
+<Base title="Blog" description="Leon Hogan’s personal blog: game development, games, and whatever else.">
+  <div class="wrap section">
+    <p class="eyebrow">Writing</p>
+    <h1>Blog</h1>
+    <p class="muted intro">Dev logs, thoughts on games, and whatever else is on my mind.</p>
+
+    {posts.length === 0 && <p class="muted">Nothing here yet. Check back soon.</p>}
+
+    <ul class="list">
+      {
+        posts.map((p) => (
+          <li>
+            <a href={`/blog/${p.id}/`}>
+              <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time>
+              <div>
+                <h2>
+                  {p.data.title}
+                  {p.data.draft && <span class="pill">Draft</span>}
+                </h2>
+                <p>{p.data.description}</p>
+                {p.data.tags.length > 0 && (
+                  <ul class="tags">
+                    {p.data.tags.map((t) => (
+                      <li class="pill">{t}</li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .intro {
+    font-size: 1.1rem;
+  }
+  .list {
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .list > li > a {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 1.5rem;
+    padding: 24px 4px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+  }
+  time {
+    font: 600 0.82rem/2.2 var(--font-mono);
+    color: var(--ink-faint);
+  }
+  h2 {
+    font-size: 1.45rem;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  a:hover h2 {
+    color: var(--accent);
+  }
+  p {
+    color: var(--ink-soft);
+    margin-bottom: 0.7rem;
+  }
+  @media (max-width: 560px) {
+    .list > li > a {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+</style>

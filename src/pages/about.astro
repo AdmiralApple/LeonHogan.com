@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import { SOCIALS } from '../site';
+---
+
+<Base title="About" description="About Leon Hogan.">
+  <div class="wrap section">
+    <div class="about">
+      <div>
+        <p class="eyebrow">About</p>
+        <h1>Hey, I’m Leon.</h1>
+        <div class="prose">
+          <p>
+            I’m a software engineer who makes games: game-jam entries, prototypes, little interactive toys, and a
+            couple of bigger projects that are slowly turning into real games.
+          </p>
+          <p>
+            I also play <em>a lot</em> of games, and I keep a log of every one, with a score and a few words on how it
+            felt. That’s the <a href="/reviews/">Reviews</a> page.
+          </p>
+          <p>
+            For my résumé and professional work, see <a href="https://elwoodhogan.com">elwoodhogan.com</a>.
+          </p>
+        </div>
+      </div>
+      <aside>
+        <h2>Find me</h2>
+        <ul>
+          {
+            SOCIALS.map((s) => (
+              <li>
+                <a href={s.href} rel="me noopener" target="_blank">
+                  {s.label} <span>↗</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: clamp(28px, 6vw, 72px);
+    align-items: start;
+  }
+  aside {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-top: 2rem;
+  }
+  aside h2 {
+    font-size: 1.1rem;
+  }
+  aside ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  aside a {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  aside li:last-child a {
+    border-bottom: 0;
+  }
+  aside span {
+    color: var(--accent);
+  }
+  @media (max-width: 760px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

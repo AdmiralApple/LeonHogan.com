@@ -1,0 +1,2391 @@
+{
+  "version": 1793196787981,
+  "exportedAt": "2026-10-28T14:13:07.981Z",
+  "note": "Committed from the Leon's Game Reviews app.",
+  "games": [
+    {
+      "status": "Dropped",
+      "title": "Coupling",
+      "rating": 3,
+      "date": "2026-10-26",
+      "feelings": "Puzzles were not fun.  Graphics were headache inducing.  Many were not challenging, properly tested, or even well thought out.",
+      "id": "coupling-mvq37jej"
+    },
+    {
+      "status": "Completed",
+      "title": "Sludgineers",
+      "rating": 5,
+      "date": "2026-10-25",
+      "feelings": "A fun game and experience, but far too short at only 3 hours of gameplay.",
+      "id": "sludgineers-mvo0x9s6"
+    },
+    {
+      "status": "Completed",
+      "title": "Divinity: Original Sin 2",
+      "rating": 10,
+      "date": "2026-10-25",
+      "feelings": "A larian studio classic.  Great story, great gameplay, VERY well made combat.",
+      "id": "divinity-original-sin-2-mvo0pvsg"
+    },
+    {
+      "status": "Plan to",
+      "title": "loddlenaut",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "loddlenaut-mvmn3wk1"
+    },
+    {
+      "status": "Plan to",
+      "title": "uplink",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "uplink-mvmn3s6a"
+    },
+    {
+      "status": "Dropped",
+      "title": "Mewgenics",
+      "rating": 6,
+      "date": "2026-10-24",
+      "feelings": "Another fun and well made game by Edmund.  has a lot of good mechanics and well done longevity design for a rougelite turn based tile based strategy.  May come back to it one day, but it just slowed being fun past the desert area, as most overarching upgrades slowed to a crawl.",
+      "id": "mewgenics-mvmn32yf"
+    },
+    {
+      "status": "Plan to",
+      "title": "Look Outside",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "look-outside-mvmn12f6"
+    },
+    {
+      "status": "Completed",
+      "title": "Desktop Explorer",
+      "rating": 7,
+      "date": "2026-09-01",
+      "feelings": "This game is a fun puzzle game with great music, story, and characters.  The horror aspect wasnt as deep as I would have liked it to be, but overall an enjoyable experience.",
+      "id": "desktop-explorer-mvmn03za"
+    },
+    {
+      "status": "Dropped",
+      "title": "Wireworks",
+      "rating": 4,
+      "date": "2026-10-24",
+      "feelings": "Good gameplay idea fairly well executed.  Not sure why youd ever pick a direction module other than something circular though.",
+      "id": "wireworks-mvmmxwnt"
+    },
+    {
+      "status": "Dropped",
+      "title": "Idle Wizard",
+      "rating": 5,
+      "date": "2026-10-24",
+      "feelings": "A fun game as far as Idle games go!  Good longevity, good her variety, and even though its free it doesnt shove paid stuff down your throat.",
+      "id": "idle-wizard-mvmmwfiv"
+    },
+    {
+      "status": "Completed",
+      "title": "Scam With Your Friends",
+      "rating": 4,
+      "date": "2026-10-24",
+      "feelings": "Decent friendslop game.  fun use of AI mechanics in-game, but once you know the cheese, its easy to scam the AI most of the time on multiple methods.",
+      "id": "scam-with-your-friends-mvmmud5i"
+    },
+    {
+      "status": "Completed",
+      "title": "Tyr",
+      "rating": 7,
+      "date": "2026-10-24",
+      "feelings": "As someone who moderatley enjoyed Warthunder, I didnt expect to like Tyr as much as I did.  However, this game comes with player-oriented mechanics, really enjoyable gameplay, and a surprisingly balanced roster and map pool.",
+      "id": "tyr-mvmmr74p"
+    },
+    {
+      "status": "Plan to",
+      "title": "ZERO PARADES: For Dead Spies",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "zero-parades-for-dead-spies-mun0zz0y"
+    },
+    {
+      "status": "Completed",
+      "title": "The Artisan of Glimmith",
+      "rating": 9,
+      "date": "2026-09-22",
+      "feelings": "Artisan of Glimmith is an objectively good puzzle game.  Each puzzle has a single solution and can be determined without having to guess the whole puzzle (some short term guessing may be needed for higher difficulties.)\nGame features great music, good visuals, and puzzles that build on each other.\nThe only thing stopping this game from being a 10/10 is meta puzzles.  I LOVE meta puzzles!",
+      "id": "the-artisan-of-glimmith-muc8f7lq"
+    },
+    {
+      "status": "Completed",
+      "title": "Dwarf Eats Mountain",
+      "rating": 7,
+      "date": "2026-09-15",
+      "feelings": "Beat in around 22 hours, but really fun for a Gnorp-like!",
+      "id": "dwarf-eats-mountain-mu39stz3"
+    },
+    {
+      "status": "Completed",
+      "title": "Melvor Idle",
+      "rating": 5,
+      "date": "2026-08-28",
+      "feelings": "Not bad as far as idle games go.  Great if youre also a Runescape-like fan.",
+      "id": "melvor-idle-mtdtc2x0"
+    },
+    {
+      "status": "Completed",
+      "title": "Grand Theft Auto V",
+      "rating": 9,
+      "date": "2026-08-28",
+      "feelings": "A great world to play in and fun multiplayer.  Gunfights are fun, driving around is REALLY fun.  It has its multiplayer meta issues (like shark cards, Opressor spammers), but other than that its a great experience, both in multiplayer and in singleplayer.",
+      "id": "grand-theft-auto-v-mtdtaim9"
+    },
+    {
+      "status": "Completed",
+      "title": "Factorio",
+      "rating": 10,
+      "date": "2026-08-28",
+      "feelings": "The perfect factory game.  This is to the factory genre what Baba is You is to the puzzle genre.  Its pure, its perfect, its got mod support.",
+      "id": "factorio-mtdt7yi2"
+    },
+    {
+      "status": "Completed",
+      "title": "Tabletop Simulator",
+      "rating": 10,
+      "date": null,
+      "feelings": "A lifelong subscription to every board and card game that is and will be made.  For 20$.\nWell made and polished, plenty of quality of life and fan content.",
+      "id": "tabletop-simulator-mtdt6piy"
+    },
+    {
+      "status": "Completed",
+      "title": "Titanfall 2",
+      "rating": 9,
+      "date": null,
+      "feelings": "Great singleplayer experience.  But even better multiplayer.  Multiplayer has the greatest movement ive experienced in a multiplayer game.  Rodeoing enemy titans and stealing their battery is some of the most fun ive had in multiplayer.\nGive us titanfall 3 you bastards.",
+      "id": "titanfall-2-mro95xvu"
+    },
+    {
+      "status": "Completed",
+      "title": "Kabuto Park",
+      "rating": 6,
+      "date": "2026-07-10",
+      "feelings": "Not a bad game, but not a lot.  beat it in one sitting.  Most bugs arent that strong so you never really get to see their cards, but beetle rush was fun.\nNice art, nice music.  Worth the 5$ methinks.",
+      "id": "kabuto-park-mrff0ptv"
+    },
+    {
+      "status": "On Hold",
+      "title": "Bravely Default",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "bravely-default-mr4gxljr"
+    },
+    {
+      "status": "Playing",
+      "title": "Chrono Trigger",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "chrono-trigger-mr4gxcsi"
+    },
+    {
+      "status": "Dropped",
+      "title": "Black Jacket",
+      "rating": 5,
+      "date": "2026-07-18",
+      "feelings": "Great thematics and voice acting, but gameplay is lacking hard.  DeckBuilding just isnt fun.",
+      "id": "black-jacket-mr4gwi8r"
+    },
+    {
+      "status": "Completed",
+      "title": "Dice A Million",
+      "rating": 7,
+      "date": "2026-07-03",
+      "feelings": "Pretty good for a Balatro-like.  The costs of things are strange, and many dice seem completely unusable, but it DOES have fun moments, which is the point methinks.  If you get a good hand, the ending and boss rush stuff is fun.",
+      "id": "dice-a-million-mr4gwb3s"
+    },
+    {
+      "status": "Plan to",
+      "title": "Chrono Trigger",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "chrono-trigger-mqybe789"
+    },
+    {
+      "status": "Plan to",
+      "title": "A Plague Tale: Innocence",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "a-plague-tale-innocence-mqyb95l6"
+    },
+    {
+      "status": "Plan to",
+      "title": "The Invincible",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "the-invincible-mqyb926m"
+    },
+    {
+      "status": "Completed",
+      "title": "Potatoman Seeks the Troof",
+      "rating": 3,
+      "date": "2026-06-17",
+      "feelings": "No save, gameplay was short.  Final level gives you a headache.  You can never really enjoy the dialogue because you are always running from something.",
+      "id": "potatoman-seeks-the-troof-mqibfevp"
+    },
+    {
+      "status": "Plan to",
+      "title": "Icaria",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "icaria-mqi9wl9p"
+    },
+    {
+      "status": "Plan to",
+      "title": "Stray",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "stray-mqbbizjg"
+    },
+    {
+      "status": "Plan to",
+      "title": "Hellslave",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "hellslave-mqbb5mjp"
+    },
+    {
+      "status": "Completed",
+      "title": "King Of The Castle",
+      "rating": 4,
+      "date": null,
+      "feelings": "Good graphics, gameplays not the worst, but its unclear about a lot of details and it can be hard to determine whos actually supposed to be doing something because everyone else is locked out of controls and not told anything.",
+      "id": "king-of-the-castle-mqbavzm1"
+    },
+    {
+      "status": "Completed",
+      "title": "AMaze DOS",
+      "rating": 0,
+      "date": "2026-06-12",
+      "feelings": "Its just... a maze generator.  for 5$.  Worst possible input schema to navigate the maze.  i could get better results by typing \"make a playable maze generator\" into chatGPT.",
+      "id": "amaze-dos-mqbatwmy"
+    },
+    {
+      "status": "Plan to",
+      "title": "The Bunny Graveyard",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "the-bunny-graveyard-mqbals35"
+    },
+    {
+      "status": "Plan to",
+      "title": "Time Walker: Dark World",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "time-walker-dark-world-mqbajuy0"
+    },
+    {
+      "status": "Completed",
+      "title": "Magicraft",
+      "rating": 8,
+      "date": "2026-06-29",
+      "feelings": "This game was more fun than I thought itd be going into it.  I enjoyed the want building here a lot more that i did in Noita.  The characters were fun, the upgrades were fun.  You can really tell this is a chinese game.  Completed in 12.4 hours and Although i have some upgrades yet to unlock, I think im done.  I dont want to overstay the welcome and let certain build paths get stale.",
+      "id": "magicraft-mqbaia01"
+    },
+    {
+      "status": "Plan to",
+      "title": "Elin",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "elin-mqbaetm4"
+    },
+    {
+      "status": "Plan to",
+      "title": "Ghost of Tsushima",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "ghost-of-tsushima-mqbacts5"
+    },
+    {
+      "status": "Plan to",
+      "title": "Fruitbus",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "fruitbus-mqba62q7"
+    },
+    {
+      "status": "Plan to",
+      "title": "The Uncertain: Last Quiet Day",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "the-uncertain-last-quiet-day-mqb9lxv3"
+    },
+    {
+      "status": "Completed",
+      "title": "Shelldiver",
+      "rating": 8,
+      "date": "2026-04-04",
+      "feelings": "Short but sweet little experience.  Fun upgrades, good graphics. Hopefully they make something longer next time.",
+      "id": "shelldiver-mqb1hsnf"
+    },
+    {
+      "status": "Completed",
+      "title": "Dagon: by H. P. Lovecraft",
+      "rating": 5,
+      "date": "2026-09-10",
+      "feelings": "I think it a shame that HP didnt get the recognition he deserved until after his death as many artists do.  But this game is a nice way to show how much the devs appreciate the themeing.\nGame took 45 mins to beat, but it was free so I cant complain",
+      "id": "dagon-by-h-p-lovecraft-mq5sxoxe"
+    },
+    {
+      "status": "Plan to",
+      "title": "State of Mind",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "state-of-mind-mq5sx97l"
+    },
+    {
+      "status": "Plan to",
+      "title": "Cage of Etha",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "cage-of-etha-mq5svbwj"
+    },
+    {
+      "status": "Plan to",
+      "title": "Before Your Eyes",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "before-your-eyes-mq5subfe"
+    },
+    {
+      "status": "Plan to",
+      "title": "Horizon Zero Dawn™ Complete Edition",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "horizon-zero-dawn-complete-edition-mq5sslhi"
+    },
+    {
+      "status": "Plan to",
+      "title": "Desktop Dungeons",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "desktop-dungeons-mq5ssasm"
+    },
+    {
+      "status": "Plan to",
+      "title": "Encased: A Sci-Fi Post-Apocalyptic RPG",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "encased-a-sci-fi-post-apocalyptic-rpg-mq5sqe6t"
+    },
+    {
+      "status": "Plan to",
+      "title": "Solasta: Crown of the Magister",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "solasta-crown-of-the-magister-mq5spfnd"
+    },
+    {
+      "status": "Plan to",
+      "title": "A Space for the Unbound",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "a-space-for-the-unbound-mq5sonkj"
+    },
+    {
+      "status": "Plan to",
+      "title": "Spirit Island",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "spirit-island-mq5sogbb"
+    },
+    {
+      "status": "Plan to",
+      "title": "Die in the Dungeon: Origins",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "die-in-the-dungeon-origins-mq5snylo"
+    },
+    {
+      "status": "Plan to",
+      "title": "To the Moon",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "to-the-moon-mq5snczu"
+    },
+    {
+      "status": "Completed",
+      "title": "Detroit: Become Human",
+      "rating": 9,
+      "date": "2026-09-10",
+      "feelings": "Watched this game back when it came out in 2018, and I dont think the devs realized how soon the concepts would become relevant.\nIt was fun to watch, but even more fun to play!",
+      "id": "detroit-become-human-mq5sn3ho"
+    },
+    {
+      "status": "Plan to",
+      "title": "Titan Chaser",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "titan-chaser-mq5sms6k"
+    },
+    {
+      "status": "Plan to",
+      "title": "Metamorphosis",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "metamorphosis-mq5sm4wj"
+    },
+    {
+      "status": "Plan to",
+      "title": "Picayune Dreams",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "picayune-dreams-mq5slki1"
+    },
+    {
+      "status": "Plan to",
+      "title": "Arctico",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "arctico-mq5sl7wb"
+    },
+    {
+      "status": "Plan to",
+      "title": "TROUBLESHOOTER: Abandoned Children",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "troubleshooter-abandoned-children-mq5skgt3"
+    },
+    {
+      "status": "Plan to",
+      "title": "Creeper World 3: Arc Eternal",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "creeper-world-3-arc-eternal-mq5s9q9j"
+    },
+    {
+      "status": "Plan to",
+      "title": "Littlewood",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "littlewood-mq5s97qc"
+    },
+    {
+      "status": "Plan to",
+      "title": "BOKURA",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "bokura-mq5s8vry"
+    },
+    {
+      "status": "Plan to",
+      "title": "BlazBlue Entropy Effect",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "blazblue-entropy-effect-mq5s8b41"
+    },
+    {
+      "status": "Plan to",
+      "title": "FOUNDRY",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "foundry-mq5s7jd9"
+    },
+    {
+      "status": "Plan to",
+      "title": "The Planet Crafter",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "the-planet-crafter-mq5s71vm"
+    },
+    {
+      "status": "Plan to",
+      "title": "Astral Ascent",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "astral-ascent-mq5s6pox"
+    },
+    {
+      "status": "Plan to",
+      "title": "Landlord's Super",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "landlord-s-super-mq5s5ap5"
+    },
+    {
+      "status": "Plan to",
+      "title": "STEINS;GATE",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "steins-gate-mq5s3exb"
+    },
+    {
+      "status": "Plan to",
+      "title": "Spiritfarer®: Farewell Edition",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "spiritfarer-farewell-edition-mq5s2te9"
+    },
+    {
+      "status": "Completed",
+      "title": "Mars First Logistics",
+      "rating": 9,
+      "date": "2026-09-15",
+      "feelings": "This game is nearly flawless.  Great builder, great graphics, fun music.  All around enjoyable",
+      "id": "mars-first-logistics-mq5s1k95"
+    },
+    {
+      "status": "Dropped",
+      "title": "CRYPTARK",
+      "rating": 2,
+      "date": "2026-06-08",
+      "feelings": "Gameplay got stale quick.  Bad voice acting.",
+      "id": "cryptark-mq5rxlce"
+    },
+    {
+      "status": "Plan to",
+      "title": "The cabin Factory",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "the-cabin-factory-mq5racmg"
+    },
+    {
+      "status": "Plan to",
+      "title": "Unheard - Voices of Crime",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "unheard-voices-of-crime-mq5r9q67"
+    },
+    {
+      "status": "Completed",
+      "title": "Knights End",
+      "rating": 4,
+      "date": "2026-06-08",
+      "feelings": "Fun with friends, but the loop gets old quick",
+      "id": "knights-end-mq5n1vik"
+    },
+    {
+      "status": "Dropped",
+      "title": "Replicube",
+      "rating": 4,
+      "date": "2026-06-08",
+      "feelings": "Not a bad little Zachlike, but a lot of the solutions just felt hard-coded rather than finding clever solutions.",
+      "id": "replicube-mq5myzs0"
+    },
+    {
+      "status": "Dropped",
+      "title": "Let Them Trade",
+      "rating": 4,
+      "date": "2026-06-08",
+      "feelings": "Gameplay loop just wasnt very interesting.  Once youve played the first hour you kind of get the feel for how the game is.",
+      "id": "let-them-trade-mq5lxlkm"
+    },
+    {
+      "status": "Completed",
+      "title": "The Tiny Bang Story",
+      "rating": 5,
+      "date": "2026-06-08",
+      "feelings": "Short but sweet.  A cute little game where an artist wanted their world to be lived through by the player.",
+      "id": "the-tiny-bang-story-mq5lszgf"
+    },
+    {
+      "status": "Plan to",
+      "title": "RUINER",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "ruiner-mq1muv7u"
+    },
+    {
+      "status": "Dropped",
+      "title": "Kingsway",
+      "rating": 5,
+      "date": "2026-08-25",
+      "feelings": "Mechanics are cool, but they get old quick, and out-of-run currency takes too long to obtain.",
+      "id": "kingsway-mq1msb6n"
+    },
+    {
+      "status": "Plan to",
+      "title": "Ken Follett's The Pillars of the Earth",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "ken-follett-s-the-pillars-of-the-earth-mq1mq36j"
+    },
+    {
+      "status": "Plan to",
+      "title": "Figment",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "figment-mq1lbj9n"
+    },
+    {
+      "status": "Plan to",
+      "title": "Little Nightmares Enhanced Edition",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "little-nightmares-enhanced-edition-mq1lazcf"
+    },
+    {
+      "status": "Plan to",
+      "title": "METAL GEAR SOLID V: THE PHANTOM PAIN",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "metal-gear-solid-v-the-phantom-pain-mq1l9yxq"
+    },
+    {
+      "status": "Completed",
+      "title": "Mages of Mystralia",
+      "rating": 7,
+      "date": "2018-09-19",
+      "feelings": "This game had a really unique spell combo system I wish more games would take inspiration from.  Good graphics too",
+      "id": "mages-of-mystralia-mq1l88pi"
+    },
+    {
+      "status": "Plan to",
+      "title": ">observer_",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "observer-mq1l4wjo"
+    },
+    {
+      "status": "Completed",
+      "title": "Yonder: The Cloud Catcher Chronicles",
+      "rating": 7,
+      "date": "2018-12-28",
+      "feelings": "love a game you can get physically lost in.  great collectibles, has all the things i like in a peaceful open world game.  Only problem is that i was you could get something thatd let you walk around faster or something like a speed boost.",
+      "id": "yonder-the-cloud-catcher-chronicles-mq1l23ay"
+    },
+    {
+      "status": "Dropped",
+      "title": "Dragon Cliff",
+      "rating": 2,
+      "date": "2019-01-01",
+      "feelings": "I apperently have 32 hours in this game.  Unmemmorable and unremarkable.",
+      "id": "dragon-cliff-mq1kz612"
+    },
+    {
+      "status": "Dropped",
+      "title": "Hand Simulator",
+      "rating": 1,
+      "date": null,
+      "feelings": "Inconsistent controls, terrible gameplay,  the gun glitched into the table and pulled the trigger.  Do not play this game. You cant eat pizza, and your arms can randomly disappear. All these bugs happened within 30 minutes of gameplay.",
+      "id": "hand-simulator-mq1kxzhq"
+    },
+    {
+      "status": "Completed",
+      "title": "Gremlins vs Automatons",
+      "rating": 6,
+      "date": "2019-02-13",
+      "feelings": "An actually decent board game.  I remember playing this alongside Civ 5 as a kid.",
+      "id": "gremlins-vs-automatons-mq1kwnh1"
+    },
+    {
+      "status": "Completed",
+      "title": "Turbo Dismount",
+      "rating": 5,
+      "date": "2019-02-13",
+      "feelings": "Fun for like, 2 hours.  Might as well have been a flash game.",
+      "id": "turbo-dismount-mq1kvlgo"
+    },
+    {
+      "status": "Plan to",
+      "title": "Cultist Simulator",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "cultist-simulator-mq1kuh7s"
+    },
+    {
+      "status": "Completed",
+      "title": "Antichamber",
+      "rating": 8,
+      "date": "2019-02-25",
+      "feelings": "A very unique game.  It maximizes the way its non-Euclidean geometry makes the player feel, alongside those fun little messages it always delivers.",
+      "id": "antichamber-mq1ku392"
+    },
+    {
+      "status": "Dropped",
+      "title": "Mutant Year Zero: Road to Eden",
+      "rating": 4,
+      "date": "2019-03-02",
+      "feelings": "When i saw that the chances to hit were locked to incriments of 25%, I knew this game was too simple, at least coming from something like Xcom.",
+      "id": "mutant-year-zero-road-to-eden-mq1ks4ie"
+    },
+    {
+      "status": "Completed",
+      "title": "GemCraft - Chasing Shadows",
+      "rating": 7,
+      "date": "2019-03-13",
+      "feelings": "One of the better tower defense games out there.  The gem combination gimick keeps things interesting for longer than i thought it would.",
+      "id": "gemcraft-chasing-shadows-mq1kqmn9"
+    },
+    {
+      "status": "Completed",
+      "title": "The Stanley Parable",
+      "rating": 9,
+      "date": "2019-03-16",
+      "feelings": "A truly one-of-a-kind narrative game.  I genuinely cannot think of a comparable game.  The amount of cute secrets on top of the main game kept things interesting as well.",
+      "id": "the-stanley-parable-mq1kp73w"
+    },
+    {
+      "status": "Completed",
+      "title": "Passpartout: The Starving Artist",
+      "rating": 5,
+      "date": "2019-03-17",
+      "feelings": "Cute and creative little drawing game.  Not much content tho.",
+      "id": "passpartout-the-starving-artist-mq1knc6j"
+    },
+    {
+      "status": "Completed",
+      "title": "XCOM 2",
+      "rating": 9,
+      "date": "2019-04-09",
+      "feelings": "One of the top grid-based tactic games on the market.  Well balanced, and has mod support.",
+      "id": "xcom-2-mq1kkjrp"
+    },
+    {
+      "status": "Plan to",
+      "title": "Fearless Fantasy",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "fearless-fantasy-mq1ki47k"
+    },
+    {
+      "status": "Completed",
+      "title": "VA-11 Hall-A: Cyberpunk Bartender Action",
+      "rating": 9,
+      "date": "2019-05-16",
+      "feelings": "This game still sticks with me.  I loved the characters in this game and with the simple drink-making mechanic, the characters is really all they had.  But I loved it all the same",
+      "id": "va-11-hall-a-cyberpunk-bartender-action-mq1kfn40"
+    },
+    {
+      "status": "Completed",
+      "title": "Dave the Diver",
+      "rating": 9,
+      "date": "2024-06-16",
+      "feelings": "This is a game I actually dropped initially and had to come back too.  Im glad I did, the gameplay loop is fun and the characters are enjoyable.",
+      "id": "dave-the-diver-mq1k668j"
+    },
+    {
+      "status": "Plan to",
+      "title": "Battle Chef Brigade Deluxe",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "battle-chef-brigade-deluxe-mq1k4ssy"
+    },
+    {
+      "status": "Dropped",
+      "title": "Dorfromantik",
+      "rating": 3,
+      "date": "2026-06-07",
+      "feelings": "A continuous slog of \"oh, well this piece will have to do\".  You all to rarely get that happy moment of getting the perfect piece for what you need.  Its always just a make-do.",
+      "id": "dorfromantik-mpz7fuv1"
+    },
+    {
+      "status": "Completed",
+      "title": "Digimon Story Time Stranger",
+      "rating": 8,
+      "date": "2026-08-25",
+      "feelings": "100%'d the field guide.\nGreat ending, great characters.\nI was sad, because when you play a game that long, a little piece of who you were playing as becomes part of you (assuming you immerse yourself enough).  And when the game is over that piece of you becomes disconnected.\nReally good overall, recommend only on sale as 70$ is ridiculous.",
+      "id": "digimon-story-time-stranger-mpz7ff16"
+    },
+    {
+      "status": "Playing",
+      "title": "ABI-DOS",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "abi-dos-mpz7f82f"
+    },
+    {
+      "status": "Completed",
+      "title": "Viewfinder",
+      "rating": 8,
+      "date": "2024-07-14",
+      "feelings": "A really novel concept executed fairly well.  A little short, which sucks because it was such a good time!  Needs a custom level editor.",
+      "id": "viewfinder-mpych4rt"
+    },
+    {
+      "status": "Completed",
+      "title": "Strange Horticulture",
+      "rating": 7,
+      "date": "2023-11-23",
+      "feelings": "Great theming and atmosphere.  A little short, but the graphics and gameplay made for a nice experience.",
+      "id": "strange-horticulture-mpxx4qtj"
+    },
+    {
+      "status": "Completed",
+      "title": "Chessformer",
+      "rating": 5,
+      "date": "2023-11-11",
+      "feelings": "Someone was like \"What if chess themed puzzle game?\" and here it is.  Nothing novel, but its a decent puzzle game.",
+      "id": "chessformer-mpxx24eo"
+    },
+    {
+      "status": "Completed",
+      "title": "Raft",
+      "rating": 7,
+      "date": "2023-11-28",
+      "feelings": "One of those big streamer games, and for a good reason!  Nice base builder with fun islands to explore.  Great multiplayer too.",
+      "id": "raft-mpxx0gjs"
+    },
+    {
+      "status": "Completed",
+      "title": "Backpack Hero",
+      "rating": 8,
+      "date": "2023-12-08",
+      "feelings": "This game was a genre definer when it first game out.  The graphics werent much but the gameplay was really well made.  Im not a fan of how theyve done it now, its too much overtuned nonsense.  but in its peak, it was peak.",
+      "id": "backpack-hero-mpxwyw0r"
+    },
+    {
+      "status": "Completed",
+      "title": "Neon White",
+      "rating": 9,
+      "date": "2023-12-14",
+      "feelings": "I love these type of speedrun games.  This one comes with great gameplay, fun characters, just enough lore and story to match the gameplay.",
+      "id": "neon-white-mpxwvrx9"
+    },
+    {
+      "status": "Completed",
+      "title": "Crayon Physics Deluxe",
+      "rating": 6,
+      "date": "2023-12-19",
+      "feelings": "Unique concept for a puzzle game.  Short but sweet.",
+      "id": "crayon-physics-deluxe-mpxwtj54"
+    },
+    {
+      "status": "Completed",
+      "title": "Tricky Towers",
+      "rating": 8,
+      "date": "2023-12-22",
+      "feelings": "Love tetris.  Love puzzle games.  This is both.  Undefeated in multiplayer btw :D",
+      "id": "tricky-towers-mpxwsejh"
+    },
+    {
+      "status": "Dropped",
+      "title": "Medieval Dynasty",
+      "rating": 5,
+      "date": "2022-12-28",
+      "feelings": "An ok suvivor crafting game.  decent with friends.  Doesnt really explore anything new.",
+      "id": "medieval-dynasty-mpxwr8e2"
+    },
+    {
+      "status": "Completed",
+      "title": "(the) Gnorp Apologue",
+      "rating": 8,
+      "date": "2024-01-03",
+      "feelings": "A fantastic incrimental game!  Cute graphics and satisfying gameplay.",
+      "id": "the-gnorp-apologue-mpxwp2nu"
+    },
+    {
+      "status": "Plan to",
+      "title": "Hogwarts Legacy",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "hogwarts-legacy-mpxwnsxz"
+    },
+    {
+      "status": "Completed",
+      "title": "Soulstone Survivors",
+      "rating": 5,
+      "date": "2024-01-10",
+      "feelings": "A decent survivor game.  Not very memorable.",
+      "id": "soulstone-survivors-mpxwnga4"
+    },
+    {
+      "status": "Completed",
+      "title": "Skala",
+      "rating": 6,
+      "date": "2024-01-17",
+      "feelings": "Cute short little puzzle game",
+      "id": "skala-mpxwm495"
+    },
+    {
+      "status": "Completed",
+      "title": "King of the Bridge",
+      "rating": 8,
+      "date": "2024-03-19",
+      "feelings": "A GREAT parady chess game with cute graphics and funny puzzle elements, alongside multiple endings.  very well made",
+      "id": "king-of-the-bridge-mpxwjrla"
+    },
+    {
+      "status": "Completed",
+      "title": "The Turing Test",
+      "rating": 6,
+      "date": null,
+      "feelings": "A fun little puzzle game.  Good graphics and some pretty cool puzzle solving concepts.",
+      "id": "the-turing-test-mpxwikjx"
+    },
+    {
+      "status": "Completed",
+      "title": "Aces & Adventures",
+      "rating": 7,
+      "date": "2025-03-25",
+      "feelings": "I enjoyed this game a lot more than I thought i would.  I enjoy how unique each character felt and the ways to build them were intuitive yet creative.",
+      "id": "aces-adventures-mpxwfs26"
+    },
+    {
+      "status": "Completed",
+      "title": "Tiny Rogues",
+      "rating": 8,
+      "date": "2024-05-29",
+      "feelings": "A fun roguelike with a surprisingly robust upgrade system and character unlock.",
+      "id": "tiny-rogues-mpxw9a8e"
+    },
+    {
+      "status": "Completed",
+      "title": "The Talos Principle 2",
+      "rating": 9,
+      "date": "2024-05-28",
+      "feelings": "They took a great game, gave it a fleshed out story, characters, and fantastic graphics.  Loved every moment of it.",
+      "id": "the-talos-principle-2-mpxw7du4"
+    },
+    {
+      "status": "Completed",
+      "title": "The Talos Principle",
+      "rating": 8,
+      "date": "2024-05-09",
+      "feelings": "I consider this game to be one of the great classic puzzle games, up there with Baba Is You and The Witness.  A must-play for any fan of the puzzle genre.  Great themings and atmosphere",
+      "id": "the-talos-principle-mpxw42oi"
+    },
+    {
+      "status": "Completed",
+      "title": "Inscryption",
+      "rating": 10,
+      "date": "2024-04-04",
+      "feelings": "A masterclass in theming, game design, and flavor.  Each act had its own structure, none fell short.  Act 1 is of course the main course that everyone fell in love with, but act 3 was my fan favorite.",
+      "id": "inscryption-mpxw0fkm"
+    },
+    {
+      "status": "Completed",
+      "title": "Rabbit and Steel",
+      "rating": 7,
+      "date": "2026-04-07",
+      "feelings": "Unique kind of game I hadnt seen before, executed pretty well.  No real problems with the game: cute graphics, fun with friends, can get good builds.  Enjoyed the time spent.",
+      "id": "rabbit-and-steel-mpxoaix4"
+    },
+    {
+      "status": "Plan to",
+      "title": "Caveblazers",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "caveblazers-mpx9144o"
+    },
+    {
+      "status": "Completed",
+      "title": "Librarian: Tidy Up the Arcane Library!",
+      "rating": 8,
+      "date": "2026-06-01",
+      "feelings": "Idk what happened.  I dumped 17 hours into it in like 3 days.  Going for the no magic run had me in a trance.  I didnt even have something playing in the background.  My brain was 100% logistics.  It was a pretty cool experience",
+      "id": "librarian-tidy-up-the-arcane-library-mpuuwb2o"
+    },
+    {
+      "status": "Completed",
+      "title": "Crystal Project",
+      "rating": 10,
+      "date": null,
+      "feelings": "With some games, the more you explore, the more of the world you explore.  With this game, the more you explore, the more you have to explore.",
+      "id": "crystal-project-mpsu9rwn"
+    },
+    {
+      "status": "Completed",
+      "title": "Patrick's Parabox",
+      "rating": 8,
+      "date": "2025-10-04",
+      "feelings": "A well made puzzle game with a cute style and complicated yet intuitive puzzles.  Has custom workshop levels too!",
+      "id": "patrick-s-parabox-mpra4lf5"
+    },
+    {
+      "status": "Completed",
+      "title": "Carto",
+      "rating": 8,
+      "date": "2021-04-30",
+      "feelings": "A cute and simply puzzle game with enjoyable narrative and style.  A great little experience.",
+      "id": "carto-mpr9ycm1"
+    },
+    {
+      "status": "Completed",
+      "title": "Disco Elysium",
+      "rating": 10,
+      "date": "2019-12-10",
+      "feelings": "Disco Elysium is a well received game for a good reason.  The characters are great and the art style is wonderful.  The choices feel like they actually matter.",
+      "id": "disco-elysium-mppnesmk"
+    },
+    {
+      "status": "Plan to",
+      "title": "Ori and the Will of the Wisps",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "ori-and-the-will-of-the-wisps-mpnngrn8"
+    },
+    {
+      "status": "Plan to",
+      "title": "Hi-Fi Rush",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "hi-fi-rush-mpnmv41g"
+    },
+    {
+      "status": "Plan to",
+      "title": "Red Dead Redemption",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "red-dead-redemption-mpngpw8e"
+    },
+    {
+      "status": "Completed",
+      "title": "SpiderHeck",
+      "rating": 8,
+      "date": "2026-05-24",
+      "feelings": "Fun solo and with friends.  Good movement tech, and the PvE is enjoyable.",
+      "id": "spiderheck-mpjbnyg8"
+    },
+    {
+      "status": "Dropped",
+      "title": "Conqueror's Blade",
+      "rating": 3,
+      "date": "2026-05-23",
+      "feelings": "\"Warlord! Heres another pop-up to distract you mid-battle!\"  Terrible UI, terrible tutorial.  Combat has its moments.",
+      "id": "conqueror-s-blade-mpiti1mh"
+    },
+    {
+      "status": "Completed",
+      "title": "9 Kings",
+      "rating": 5,
+      "date": "2025-08-18",
+      "feelings": "It has fun combinations and enjoyable gameplay, but not enough variety.",
+      "id": "9-kings-mphdggde"
+    },
+    {
+      "status": "Dropped",
+      "title": "Wildfrost",
+      "rating": 5,
+      "date": "2024-12-16",
+      "feelings": "While the gameplay itself it fine, I feel that after the first few hours theres nothing to intriguing to it.  Each run doesnt feel that different and the exceptional runs are few and far between.  Still, nice graphics and gamefeel though.",
+      "id": "wildfrost-mph8kdt6"
+    },
+    {
+      "status": "Completed",
+      "title": "Still Wakes the Deep",
+      "rating": 8,
+      "date": "2024-11-16",
+      "feelings": "Really cool horror game.  The aspect of being trapped on an oil rig was a cool concept, and the graphics were great.  The gameplay was nice, non of the horror hurdles were too high.  The ending was ok.",
+      "id": "still-wakes-the-deep-mph8asv7"
+    },
+    {
+      "status": "Dropped",
+      "title": "Creatures of Ava",
+      "rating": 3,
+      "date": "2024-09-23",
+      "feelings": "The graphics and gameplay were meh.  I do not believe I am the target audience for this game.",
+      "id": "creatures-of-ava-mph7y4r3"
+    },
+    {
+      "status": "Completed",
+      "title": "Tunic",
+      "rating": 9,
+      "date": "2025-04-27",
+      "feelings": "A great experience.  A novel and unique concept executed very well.  I actually didnt get this game on my first playthrough, but after coming back to it Im glad I did.",
+      "id": "tunic-mph7wxaz"
+    },
+    {
+      "status": "Completed",
+      "title": "PSychonauts 2",
+      "rating": 7,
+      "date": "2025-03-05",
+      "feelings": "Psychonauts 1 with a new story and a new coat of paint.  They did well in this remake, keeping all the charm and gameplay of the first game.  A sequal done well methinks.",
+      "id": "psychonauts-2-mph7v0al"
+    },
+    {
+      "status": "Completed",
+      "title": "Psyconauts 1",
+      "rating": 7,
+      "date": "2025-01-21",
+      "feelings": "Not a bad little game given it came out in 2005.  The gameplay holds up relatively well and the graphics arent that bad.",
+      "id": "psyconauts-1-mph7t5bp"
+    },
+    {
+      "status": "Dropped",
+      "title": "He is Coming",
+      "rating": 3,
+      "date": "2025-07-28",
+      "feelings": "Overly simple combat, overly simple out of combat, limited item quantity limits the possibility for many cool item combinations.  This could have been a phone game.",
+      "id": "he-is-coming-mph7p8ef"
+    },
+    {
+      "status": "Dropped",
+      "title": "Blue Prince",
+      "rating": 9,
+      "date": "2025-07-02",
+      "feelings": "This is the greatest game I will ever drop.  Blue prince has incredible puzzle mechanics, exceptionally enjoyable runs, and a knack for keeping you pulled in.  Sadly where it falls short is late-game puzzles.  I am simply not smart enough to figure out many of the post blue-crown puzzles.  I wish there were more letters given to the player to help them along because boy did I need it.",
+      "id": "blue-prince-mph7nbt9"
+    },
+    {
+      "status": "Completed",
+      "title": "Animal Well",
+      "rating": 9,
+      "date": "2025-10-23",
+      "feelings": "A great metrodvania done very well.  Unique graphics, fun mechanics, cool post-game.  It was simply an enjoyable experience the whole time I was playing it.",
+      "id": "animal-well-mph7jk7q"
+    },
+    {
+      "status": "Dropped",
+      "title": "Dredgers",
+      "rating": 6,
+      "date": "2025-12-02",
+      "feelings": "Dredgers has a lot of cool things going on, and there is a chance I come back to it, but the game lacks a clear goal meaning every run is done for the sake of doing the run.  Once I had that golden run that got me through most the levels, I felt I had experienced most of what the game had to offer.",
+      "id": "dredgers-mph7h4nj"
+    },
+    {
+      "status": "Completed",
+      "title": "Luck be a Landlord",
+      "rating": 8,
+      "date": "2025-12-02",
+      "feelings": "A great roguelike!  Nice simple graphics, cool concept executed well.  I feel the quality has deteriorated in the last few updates before it came out of early access, but given it was before Balatro, i think it did gamification really well.",
+      "id": "luck-be-a-landlord-mph7evk7"
+    },
+    {
+      "status": "Completed",
+      "title": "Guilty as Sock",
+      "rating": 6,
+      "date": "2025-12-03",
+      "feelings": "Fine as far as friendslop games go.  Gives you a good foundation to create funny moments.",
+      "id": "guilty-as-sock-mph7chje"
+    },
+    {
+      "status": "Dropped",
+      "title": "Shattered Pixel Dungeon",
+      "rating": 2,
+      "date": "2025-12-07",
+      "feelings": "It just, was NOT fun.  It seems theres some cool mechanics here but... Woof.  Just trying to get through the opening is a slog.",
+      "id": "shattered-pixel-dungeon-mph79x2t"
+    },
+    {
+      "status": "Plan to",
+      "title": "Slay the Princess",
+      "rating": null,
+      "date": null,
+      "feelings": null,
+      "id": "slay-the-princess-mph77lcm"
+    },
+    {
+      "status": "Completed",
+      "title": "FACEMINER",
+      "rating": 6,
+      "date": "2026-01-25",
+      "feelings": "A fun little incremental game with a cool theme.  Neat mechanics, but ultimately too short for my tastes.",
+      "id": "faceminer-mph763le"
+    },
+    {
+      "status": "Dropped",
+      "title": "Game Builder Tycoon",
+      "rating": 2,
+      "date": "2026-04-10",
+      "feelings": "I tried playing this to feel what it was like to play Game Dev Tycoon, and it kinda worked, but this game just doesnt have the charm or balance.  No matter how well you do, it feels like youre always behind competitors and too late to do any big stuff before the end year hits.",
+      "id": "game-builder-tycoon-mph6z4dy"
+    },
+    {
+      "status": "On Hold",
+      "title": "Subnautica 2",
+      "rating": null,
+      "date": null,
+      "feelings": "Still in development, but so far its been a 9/10 for me.  Really good, especially with multiplayer!",
+      "id": "subnautica-2-mpglfhg8"
+    },
+    {
+      "id": "baulders-gate-0",
+      "title": "baulders gate",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "crypt-custodian-1",
+      "title": "Crypt Custodian",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2025-08-13",
+      "feelings": "Better than I thought it would be!  Nothing special, very casual, but I enjoyed the ride while it lasted.  Did genuinely get tears out of me during the credits, but that was mostly due to my innate fear of death.  Would recommend!"
+    },
+    {
+      "id": "runescape-2",
+      "title": "runescape",
+      "status": "Dropped",
+      "rating": 5,
+      "date": null,
+      "feelings": "Fun with friends!  Kind of tedius doing it solo"
+    },
+    {
+      "id": "isles-of-sea-and-sky-3",
+      "title": "isles of sea and sky",
+      "status": "Dropped",
+      "rating": 5,
+      "date": null,
+      "feelings": "great little puzzle game, but its starting to get too much.  Prob will watch a playthrough to see the ending"
+    },
+    {
+      "id": "minds-beneath-us-4",
+      "title": "minds beneath us",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "card-shark-5",
+      "title": "card shark",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "captain-of-industry-6",
+      "title": "captain of industry",
+      "status": "Playing",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "back-to-the-dawn-7",
+      "title": "back to the dawn",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "the-alters-8",
+      "title": "the alters",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "monster-train-2-9",
+      "title": "monster train 2",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "strange-jigsaws-10",
+      "title": "strange jigsaws",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2025-08-07",
+      "feelings": "great follow up to 20 small mazes.  I got really sad when the goblin at the end said \"ill miss you\", because I knew id never see it again."
+    },
+    {
+      "id": "rain-world-11",
+      "title": "rain world",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2025-08-07",
+      "feelings": "great game!  The difficulty and AI feel great!  Although trying to figure out the lore takes a LOT of travelling"
+    },
+    {
+      "id": "crosscode-12",
+      "title": "crosscode",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "fae-tactics-13",
+      "title": "fae tactics",
+      "status": "Playing",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "fields-of-mistria-14",
+      "title": "fields of mistria",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": "On hold until the engine gets updated.  Crashes are too frequent"
+    },
+    {
+      "id": "arco-15",
+      "title": "arco",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "worldless-16",
+      "title": "worldless",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "shapez-2-17",
+      "title": "shapez 2",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "signalis-18",
+      "title": "signalis",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "bots-are-stupid-19",
+      "title": "Bots are stupid",
+      "status": "Dropped",
+      "rating": 3,
+      "date": "2025-08-06",
+      "feelings": "not the best.  Hard to enjoy average coding games when Zachtronic coding games are so far above average.  Nothing in this game stood out enough to enjoy."
+    },
+    {
+      "id": "ship-inc-20",
+      "title": "Ship Inc.",
+      "status": "Dropped",
+      "rating": 4,
+      "date": null,
+      "feelings": "Seems like a game for girls."
+    },
+    {
+      "id": "drg-survivor-21",
+      "title": "DRG survivor",
+      "status": "Dropped",
+      "rating": 5,
+      "date": null,
+      "feelings": "Fun gameplay, but very little reward incentive.  Just struggle then struggle."
+    },
+    {
+      "id": "red-dead-redemption-2-22",
+      "title": "Red dead redemption 2",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "miside-23",
+      "title": "miside",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2025-01-25",
+      "feelings": "Wonderful horror / romance? Technically.  A little short, but the characters were great and I enjoyed every moment of it"
+    },
+    {
+      "id": "keep-on-mining-24",
+      "title": "Keep on mining",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2025-12-26",
+      "feelings": "Great game!  Very casual, had plenty of unique upgrades.  Got a little grindy and the end, but I wish it was longer!"
+    },
+    {
+      "id": "city-game-studio-25",
+      "title": "City Game Studio",
+      "status": "Dropped",
+      "rating": 5,
+      "date": "2025-12-30",
+      "feelings": "Good game, but its EXTREMELY slow to gain fans?  Cant get to AAA before the end of the playable time limit"
+    },
+    {
+      "id": "the-drifter-27",
+      "title": "The drifter",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2025-02-06",
+      "feelings": "Great game!  I haveant played a point n click adventure game this good since I played the Deponia trilogy. Its everything I hoped it would be: Great dialogue, great concept, great voice actors. It has a great ending that left me completely satisfied."
+    },
+    {
+      "id": "our-adventuring-guild-28",
+      "title": "Our Adventuring guild",
+      "status": "Completed",
+      "rating": 10,
+      "date": "2025-02-07",
+      "feelings": "Fantastic RPG - it had everything I would want from an adventurer management game: fun mechanics, character interaction.  Every adventurer I recruited felt unique, which is hard to pull off.  I only wish there was more content and moddability."
+    },
+    {
+      "id": "hellcard-29",
+      "title": "Hellcard",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "pheonix-point-30",
+      "title": "Pheonix point",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "art-of-reflection-31",
+      "title": "Art of reflection",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2025-01-12",
+      "feelings": "Great puzzle game, a little short, but enjoyable."
+    },
+    {
+      "id": "dyson-sphere-progam-32",
+      "title": "Dyson Sphere Progam",
+      "status": "Dropped",
+      "rating": 5,
+      "date": null,
+      "feelings": "Just doesn’t do it for me like factorio does.  Modularity seems very difficult and input/ooutputs on machines is unclear."
+    },
+    {
+      "id": "bloomtown-33",
+      "title": "Bloomtown",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "wantless-34",
+      "title": "Wantless",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "colonyship-35",
+      "title": "Colonyship",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "atlyss-36",
+      "title": "Atlyss",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2026-08-25",
+      "feelings": "Fell a bit below expectations.  world was meh, characters were meh.  Just meh."
+    },
+    {
+      "id": "sun-haven-37",
+      "title": "Sun Haven",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "horizons-gate-38",
+      "title": "Horizons Gate",
+      "status": "Completed",
+      "rating": 10,
+      "date": "2025-02-18",
+      "feelings": "Ill always remember this RPG.  Cool mechanics, memorable characters."
+    },
+    {
+      "id": "rings-of-saturn-40",
+      "title": "Rings of Saturn",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2026-03-14",
+      "feelings": "This game has a cool atmosphere and game loop, but kind of lacks direction, and the more expensive ships don’t really feel like an upgrade.  Enjoyed the time I had with this though!"
+    },
+    {
+      "id": "those-who-rule-41",
+      "title": "Those Who Rule",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "the-last-spell-42",
+      "title": "The Last spell",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "tactical-breach-wizards-43",
+      "title": "Tactical Breach Wizards",
+      "status": "Completed",
+      "rating": 10,
+      "date": "2026-04-22",
+      "feelings": "This game does everything perfectly, from level design and gameplay to out-of-combat character building.  It treats its player as intelligent and benefits for it.  A gold standard for video games."
+    },
+    {
+      "id": "highfleet-44",
+      "title": "Highfleet",
+      "status": "Dropped",
+      "rating": 2,
+      "date": "2026-05-06",
+      "feelings": "Game has a nice aesthetic, but is lacking in many key parts."
+    },
+    {
+      "id": "the-perfect-tower-2-45",
+      "title": "The perfect tower 2.",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2026-05-20",
+      "feelings": "a decent idle incrimental as any go.  Good mechanics, but it drones on at the end, and the ending didn’t account for me NOT having producers or dyson spheres, so I couldn’t even get any of the ending upgrades.  Still don’t regret playing though!"
+    },
+    {
+      "id": "eco-46",
+      "title": "Eco",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2026-05-01",
+      "feelings": "What a great concept for a game!  Only really fun with a group, but if you get a good group it can be a blast!"
+    },
+    {
+      "id": "portal-2-47",
+      "title": "Portal 2",
+      "status": "Completed",
+      "rating": 10,
+      "date": null,
+      "feelings": "I consider this to be the best singleplayer game Valve has ever made.  Great story, gameplay, and memorable characters."
+    },
+    {
+      "id": "portal-1-48",
+      "title": "Portal 1",
+      "status": "Completed",
+      "rating": 9,
+      "date": null,
+      "feelings": "I ended up playing this after Portal 2, but even in Portal 1, you can see all the love and charm that laid the foundation to make Portal 2 even better"
+    },
+    {
+      "id": "dishonoured-1-49",
+      "title": "Dishonoured 1",
+      "status": "Completed",
+      "rating": 10,
+      "date": null,
+      "feelings": "The best stealth game.  Great mechanics, FANTASTIC characters and world building.  Although I have not played the assassings creed games, I cant imagine them being better than this"
+    },
+    {
+      "id": "dishonoured-2-50",
+      "title": "Dishonoured 2",
+      "status": "Completed",
+      "rating": 9,
+      "date": null,
+      "feelings": "People hate on 2 too much.  This game was a fantastic sequal, with cool new abilities and levels.  Graphics were gorgeos as well."
+    },
+    {
+      "id": "half-life-1-51",
+      "title": "Half Life 1",
+      "status": "Completed",
+      "rating": 6,
+      "date": null,
+      "feelings": "Im sure this game was great for what it was back in the day, but It didn’t pull me in as much as I thought it would"
+    },
+    {
+      "id": "outer-wilds-52",
+      "title": "Outer Wilds",
+      "status": "Completed",
+      "rating": 10,
+      "date": null,
+      "feelings": "Greatest Archeology game to date.  Some of the best gameplay and world building.  A gold standard for games"
+    },
+    {
+      "id": "outer-worlds-53",
+      "title": "Outer Worlds",
+      "status": "Completed",
+      "rating": 5,
+      "date": null,
+      "feelings": "Not a bad game, but definitley forgettable.  I only ever think of this game when I think of Outer Wilds"
+    },
+    {
+      "id": "witness-54",
+      "title": "Witness",
+      "status": "Completed",
+      "rating": 10,
+      "date": null,
+      "feelings": "Some people think this game is pretentious, but I find it to be a masterclass in world exploration puzzle gaming."
+    },
+    {
+      "id": "baba-is-you-55",
+      "title": "Baba is You",
+      "status": "Completed",
+      "rating": 10,
+      "date": null,
+      "feelings": "The best puzzle game hands down.  While other puzzle games such as Portal 2 and The Witness comes with  great characters or world to explore, Baba is You is pure puzzle, and it does it expertly."
+    },
+    {
+      "id": "prey-56",
+      "title": "Prey",
+      "status": "Completed",
+      "rating": 7,
+      "date": null,
+      "feelings": "While this game featured a great world, cool enemies, and fun weapons, I found most of the story and characters to be forgettable."
+    },
+    {
+      "id": "just-cause-2-57",
+      "title": "Just Cause 2",
+      "status": "Completed",
+      "rating": 5,
+      "date": null,
+      "feelings": "Fun gameplay and world!  But that’s about it."
+    },
+    {
+      "id": "maize-58",
+      "title": "Maize",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2017-12-24",
+      "feelings": "What a weird game.  Neat, but weird"
+    },
+    {
+      "id": "doki-doki-literature-club-59",
+      "title": "Doki Doki Literature club",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2017-12-23",
+      "feelings": "Classic.  Short, but good.  Yuri best girl"
+    },
+    {
+      "id": "fallout-new-vegas-60",
+      "title": "Fallout new Vegas",
+      "status": "Completed",
+      "rating": 9,
+      "date": null,
+      "feelings": "One of the best fallout games.  Memmoreable character, world and story."
+    },
+    {
+      "id": "fallout-3-61",
+      "title": "Fallout 3",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2015-07-25",
+      "feelings": "While the gameplay is nice, I cant really remember much of the story or characters."
+    },
+    {
+      "id": "fallout-4-62",
+      "title": "Fallout 4",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2017-11-23",
+      "feelings": "I loved this game.  The characters were cool, I liked the story and it has Nick Valentine."
+    },
+    {
+      "id": "skyrim-63",
+      "title": "Skyrim",
+      "status": "Completed",
+      "rating": 10,
+      "date": "2017-11-18",
+      "feelings": "It was the golden era of video games, and one of the greatest open world games of the decade dropped.  Skyrim is Skyrim.  I pray they do not screw up ES6."
+    },
+    {
+      "id": "orwell-64",
+      "title": "Orwell",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "scanner-sombre-65",
+      "title": "Scanner Sombre",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2017-10-07",
+      "feelings": "Cool concept for a horror game, and great story.  A little short, and the horror aspects need some work, but overall great."
+    },
+    {
+      "id": "curi-66",
+      "title": "Curi",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "the-shrouded-isl-67",
+      "title": "The Shrouded Isl",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "tiny-echo-68",
+      "title": "Tiny Echo",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "wuppo-69",
+      "title": "Wuppo",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2017-09-22",
+      "feelings": "Fantastic little 2d adventure!  Fun gameplay"
+    },
+    {
+      "id": "osiris-new-dawn-70",
+      "title": "Osiris New Dawn",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2017-09-10",
+      "feelings": "Really cool giant worms, but that’s about it."
+    },
+    {
+      "id": "event-0-71",
+      "title": "Event[0]",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2017-07-21",
+      "feelings": "While I don’t remember much, I do remember the mascot and having a generally enjoyable experience"
+    },
+    {
+      "id": "hyper-light-drifter-72",
+      "title": "Hyper Light Drifter",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "borderlands-73",
+      "title": "Borderlands",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2018-07-17",
+      "feelings": "While im sure the gameplay was fine… I just don’t remember a dang thing about the game"
+    },
+    {
+      "id": "borderlands-2-74",
+      "title": "Borderlands 2",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2023-02-19",
+      "feelings": "Now this game is great!  Great gameplay, absolutley on the list for one of the top game villians."
+    },
+    {
+      "id": "borderlands-pre-sequal-75",
+      "title": "Borderlands pre-sequal",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2017-06-24",
+      "feelings": "People give this game too much hate.  It wasn’t the best, but I had fun with it."
+    },
+    {
+      "id": "borderlands-3-76",
+      "title": "Borderlands 3",
+      "status": "Completed",
+      "rating": 6,
+      "date": null,
+      "feelings": "Had some cool gameplay moments, but not memmorable"
+    },
+    {
+      "id": "tales-from-the-borderlands-77",
+      "title": "Tales from the borderlands",
+      "status": "Completed",
+      "rating": 10,
+      "date": "2020-12-06",
+      "feelings": "Best telltale game.  Great characters, cool story concepts.  Enjoyable the whole way through."
+    },
+    {
+      "id": "norwoord-suite-78",
+      "title": "Norwoord suite",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2020-10-12",
+      "feelings": "Played this game because it was published by the Yogscast, and I don’t regret it.  Short, weird, but cool."
+    },
+    {
+      "id": "what-remains-of-edith-finch-79",
+      "title": "What remains of Edith Finch",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2020-10-04",
+      "feelings": "Short, but great.  Cool concepts, memmorable moments."
+    },
+    {
+      "id": "the-unfinished-swan-80",
+      "title": "The Unfinished Swan",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2020-09-12",
+      "feelings": "Another short but sweet game, love games like this."
+    },
+    {
+      "id": "superhot-81",
+      "title": "Superhot",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2017-06-19",
+      "feelings": "Cool and unique gameplay"
+    },
+    {
+      "id": "superhot-vr-82",
+      "title": "Superhot VR",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2021-12-21",
+      "feelings": "One of the best VR games.  Play this to feel like a cool anime character"
+    },
+    {
+      "id": "superhot-mcd-83",
+      "title": "Superhot MCD",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2020-08-06",
+      "feelings": "More of the great gameplay of superhot"
+    },
+    {
+      "id": "creeper-world-4-84",
+      "title": "Creeper world 4",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2026-01-07",
+      "feelings": "Great tower defense game, with plents of content.  Looking at the other creeper world games, id say 3d looks a lot cooler than the 2d games"
+    },
+    {
+      "id": "opus-magnum-85",
+      "title": "Opus Magnum",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2018-10-20",
+      "feelings": "Another classic out of the legendary Zachtronics.  He took his fun instruction based puzzles and gave it a wonderful world and characters to go along with it.  A must-play for any Zachtronic fan."
+    },
+    {
+      "id": "exapunks-86",
+      "title": "Exapunks",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2026-04-05",
+      "feelings": "I have a great love for this game.  It comes with an instruction manual it encourages you to print yourself and I assure you I spend however much money in ink to do so.  More coding based that most Zachtronic games, but still comes with that charming world building and character dialogue youd expect from Zach"
+    },
+    {
+      "id": "infinifactory-87",
+      "title": "Infinifactory",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2016-06-10",
+      "feelings": "The only 3d Zachtronic game, the first Zachtronic game id had ever played, and Ironically my least favorite.  While the puzzle elements and world building are fine, theyre just not the diamonds one would expect from a Zachtronic title.  That’s not to say its bad by any means, im merely comparing a delicious chicken sanwhich to what is normally a fine filet-mignon.  Absolutely sill worth playing!"
+    },
+    {
+      "id": "secrets-of-grindea-88",
+      "title": "Secrets of Grindea",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2024-03-17",
+      "feelings": "One of the best indie adventure games Ive ever played.  Good  combat, cool world, cool characters, great progression.  I had fun the whole time playing it."
+    },
+    {
+      "id": "gris-89",
+      "title": "Gris",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "horizon-zero-dawn-90",
+      "title": "Horizon Zero Dawn",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "ftl-faster-than-light-91",
+      "title": "FTL: Faster Than Light",
+      "status": "Completed",
+      "rating": 10,
+      "date": null,
+      "feelings": "This game is the best roguelike made.  With over 500 hours played thanks to modding, Ill be continueing to play this for a long time.  Im  a sucker for any game that lets you pause and think."
+    },
+    {
+      "id": "into-the-breach-92",
+      "title": "Into the breach",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2022-07-27",
+      "feelings": "By the same creators as FTL, into the breach is a gem of a strategy game.  Great mechanics, similar to Tactical Breach Wizards."
+    },
+    {
+      "id": "dream-tactics-93",
+      "title": "Dream Tactics",
+      "status": "Completed",
+      "rating": 9,
+      "date": "2024-06-05",
+      "feelings": "This game surprised me with how good it was.  This is one of the few games that had such INCREDIBLE loot for exploring and doing side missions.  Every time I got a new set of cards or artifact it would completely reshape the way my next battle would go.  This led to a VERY good motivation to explore and play, resulting in a LOT of fun.  Characters and world were good too!"
+    },
+    {
+      "id": "there-is-no-game-wrong-direction-94",
+      "title": "There is No Game: Wrong Direction",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2024-07-23",
+      "feelings": "A cute point and click game going through a few genres and poking fun at them.  A little short, but a novel experience none-theless"
+    },
+    {
+      "id": "heart-of-the-machine-95",
+      "title": "Heart of the Machine",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "world-end-economica-episode-01-96",
+      "title": "WORLD END ECONOMiCA episode.01",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "islands-of-insight-97",
+      "title": "Islands of Insight",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "renowned-explorers-international-society-98",
+      "title": "Renowned Explorers: International Society",
+      "status": "Plan to",
+      "rating": 0,
+      "date": "2017-05-01",
+      "feelings": null
+    },
+    {
+      "id": "mushroom-11-99",
+      "title": "Mushroom 11",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2017-03-02",
+      "feelings": "Cool game mechanic and all, but utilized poorly methinks"
+    },
+    {
+      "id": "beholder-100",
+      "title": "Beholder",
+      "status": "Dropped",
+      "rating": 5,
+      "date": "2017-02-27",
+      "feelings": "Mid game with even more mid sequals.  Great game if youre a peeping time kinda guy"
+    },
+    {
+      "id": "gigachess-101",
+      "title": "Gigachess",
+      "status": "Dropped",
+      "rating": 3,
+      "date": "2017-02-28",
+      "feelings": "I like chess, but not this.  Simply was not fun enough to continue"
+    },
+    {
+      "id": "song-of-the-deep-102",
+      "title": "Song of the Deep",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "pony-island-103",
+      "title": "Pony Island",
+      "status": "Completed",
+      "rating": 4,
+      "date": "2026-06-03",
+      "feelings": "Underwhelming coming from the same Daniel Mullins who designed the masterpiece that is Inscryption.  it was his first game however, so hopefully it is redeemed in pony island 2"
+    },
+    {
+      "id": "brothers-a-tale-of-two-sons-104",
+      "title": "Brothers - A Tale of Two Sons",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "kathy-rain-105",
+      "title": "Kathy Rain",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "battleblock-theatre-106",
+      "title": "BattleBlock Theatre",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2016-12-31",
+      "feelings": "Just not my type of game"
+    },
+    {
+      "id": "lego-jurassic-world-107",
+      "title": "Lego Jurassic world",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2016-12-31",
+      "feelings": "I love the lego series!  This ones not very memmorable though"
+    },
+    {
+      "id": "trucking-simulator-2-108",
+      "title": "Trucking simulator 2",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2016-12-13",
+      "feelings": "Nice to play with something in the background"
+    },
+    {
+      "id": "card-hunter-109",
+      "title": "Card Hunter",
+      "status": "Dropped",
+      "rating": 5,
+      "date": "2016-12-12",
+      "feelings": "This used to be a great game to play in school on browser.  May revisit some day!"
+    },
+    {
+      "id": "kentucky-route-zero-110",
+      "title": "Kentucky Route Zero",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "broken-age-111",
+      "title": "Broken Age",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2016-11-27",
+      "feelings": "A great point and click adventure game with a cool world and nice characters.  Has a place in my heart.  Small, but a place."
+    },
+    {
+      "id": "titan-souls-112",
+      "title": "Titan Souls",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "big-pharma-113",
+      "title": "Big Pharma",
+      "status": "Dropped",
+      "rating": 5,
+      "date": "2016-11-13",
+      "feelings": "The problem with most factory games is that most of the time, id rather just be playing Factorio"
+    },
+    {
+      "id": "oxenfree-114",
+      "title": "Oxenfree",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "technobabylon-115",
+      "title": "Technobabylon",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "civ-v-116",
+      "title": "Civ V",
+      "status": "Completed",
+      "rating": 10,
+      "date": "2016-11-01",
+      "feelings": "Civ 5 was a marvel of a turn based strategy game, and many consider this one to be the best in the series.  Many enjoyable hours have been has in this game."
+    },
+    {
+      "id": "zup-117",
+      "title": "Zup",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2016-10-11",
+      "feelings": "It’s a simple puzzle game.  That’s it."
+    },
+    {
+      "id": "blueprint-tycoon-118",
+      "title": "Blueprint Tycoon",
+      "status": "Dropped",
+      "rating": 3,
+      "date": "2016-09-28",
+      "feelings": "This is what you played to try to fill the Prison Architect niche.  It didn’t work."
+    },
+    {
+      "id": "adventure-communist-119",
+      "title": "Adventure Communist",
+      "status": "Dropped",
+      "rating": 2,
+      "date": "2016-08-30",
+      "feelings": "What if we made Adventure Capitalist, but worse in every way?"
+    },
+    {
+      "id": "grow-up-120",
+      "title": "Grow Up",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2016-08-26",
+      "feelings": "A fun game about growin a plant.  Good gameplay, but that’s kind of it."
+    },
+    {
+      "id": "reprisal-universe-121",
+      "title": "Reprisal Universe",
+      "status": "Dropped",
+      "rating": 3,
+      "date": "2016-08-21",
+      "feelings": "Not a bad game, it just failed to keep me pulled in"
+    },
+    {
+      "id": "hammerwatch-122",
+      "title": "Hammerwatch",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2016-08-21",
+      "feelings": "Its ok with friends, but it doesn’t do anytthing special"
+    },
+    {
+      "id": "holy-potatoes-a-weapon-shop-123",
+      "title": "Holy Potatoes! A Weapon Shop?!",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2016-08-19",
+      "feelings": "This game had fine mechanics, and a cute charm, but did little else."
+    },
+    {
+      "id": "hand-of-fate-124",
+      "title": "Hand of Fate",
+      "status": "Dropped",
+      "rating": 4,
+      "date": "2016-08-18",
+      "feelings": "A card game with real time combat?  Not my style."
+    },
+    {
+      "id": "slots-daggers-125",
+      "title": "Slots & Daggers",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2026-05-18",
+      "feelings": "This game knows how to gamify the experience, but not balance.  Most weapons and upgrades were completely worthless, and the game was too short.  Not a bad little experience though."
+    },
+    {
+      "id": "berry-bury-berry-126",
+      "title": "Berry Bury Berry",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2026-05-24",
+      "feelings": "Gameplay can get a little repetitive mid-game, but overall was enjoyable.  Good ending too."
+    },
+    {
+      "id": "kynseed-128",
+      "title": "Kynseed",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "shenzhen-i-o-129",
+      "title": "Shenzhen I/O",
+      "status": "On Hold",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "there-is-no-cave-130",
+      "title": "This is no Cave",
+      "status": "Dropped",
+      "rating": 3,
+      "date": "2026-03-31",
+      "feelings": "Controls felt clunks and speedrunning most levels were about getting perfect grapple angles, which wasn’t very fun.  Cool aethetic tho"
+    },
+    {
+      "id": "linelith-131",
+      "title": "Linelith",
+      "status": "Completed",
+      "rating": 7,
+      "date": "2026-03-30",
+      "feelings": "Oh the hopes to play more The Witness.  Cute little puzzle game, with good mechanics.  Too short to warrant a higher rating"
+    },
+    {
+      "id": "realms-of-magic-132",
+      "title": "Realms of Magic",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "calvins-gallery-133",
+      "title": "Calvins Gallery",
+      "status": "Dropped",
+      "rating": 1,
+      "date": "2026-02-26",
+      "feelings": "Played this on a whim after hearing nice things about it online.  I hate RPGMK games.  They all suck and have no soul put into them."
+    },
+    {
+      "id": "leap-year-134",
+      "title": "Leap year",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2026-02-09",
+      "feelings": "A rule discovery game with plenty of fun and unique mechanics!  A little short, but very enjoyable."
+    },
+    {
+      "id": "handshakes-135",
+      "title": "Handshakes",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2023-01-22",
+      "feelings": "Neat little showcase of a fun puzzle game"
+    },
+    {
+      "id": "the-magic-circle-136",
+      "title": "The magic circle",
+      "status": "Completed",
+      "rating": 8,
+      "date": "2016-06-17",
+      "feelings": "I remember thinking this was the COOLEST game because of how clever the modular enemies were.  Nice story too."
+    },
+    {
+      "id": "mad-max-137",
+      "title": "Mad Max",
+      "status": "Completed",
+      "rating": 5,
+      "date": "2016-05-17",
+      "feelings": "I have very few memories of this game despite having 34 hours in it.  I remember decent graphics and ok gameplay."
+    },
+    {
+      "id": "l-a-noire-138",
+      "title": "L.A. Noire",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "hook-139",
+      "title": "Hook",
+      "status": "Completed",
+      "rating": 4,
+      "date": "2016-02-23",
+      "feelings": "Theres a whole slough of \"simplistic puzzle game you can beat in like 5 hours\".  This is one of them"
+    },
+    {
+      "id": "farming-simulator-2013-140",
+      "title": "Farming Simulator 2013",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2016-02-09",
+      "feelings": "Genuinley do not know the difference between any of these games.  I think they add grass mowing at some point?"
+    },
+    {
+      "id": "farming-simulator-2015-141",
+      "title": "Farming Simulator 2015",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2016-06-09",
+      "feelings": "Genuinley do not know the difference between any of these games.  I think they add grass mowing at some point?"
+    },
+    {
+      "id": "farming-simulator-2017-142",
+      "title": "Farming Simulator 2017",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2016-11-13",
+      "feelings": "Genuinley do not know the difference between any of these games.  I think they add grass mowing at some point?"
+    },
+    {
+      "id": "farming-simulator-2019-143",
+      "title": "Farming Simulator 2019",
+      "status": "Completed",
+      "rating": 6,
+      "date": "2019-10-30",
+      "feelings": "Genuinley do not know the difference between any of these games.  I think they add grass mowing at some point?"
+    },
+    {
+      "id": "evoland-1-144",
+      "title": "Evoland 1",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    },
+    {
+      "id": "evoland-2-145",
+      "title": "Evoland 2",
+      "status": "Plan to",
+      "rating": null,
+      "date": null,
+      "feelings": null
+    }
+  ]
+}

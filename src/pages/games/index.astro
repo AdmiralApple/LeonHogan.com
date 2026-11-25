@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import GameCard from '../../components/GameCard.astro';
+import { getGames } from '../../lib/games';
+
+const games = await getGames();
+const count = (k: string) => games.filter((g) => g.data.kind === k).length;
+const filters = [
+  { key: 'all', label: 'Everything', n: games.length },
+  { key: 'game', label: 'Games', n: count('game') },
+  { key: 'jam', label: 'Jam games', n: count('jam') },
+  { key: 'toy', label: 'Toys', n: count('toy') },
+  { key: 'tool', label: 'Tools', n: count('tool') },
+].filter((f) => f.n > 0);
+---
+
+<Base title="Games" description="Games, game-jam entries, toys and tools made by Leon Hogan.">
+  <div class="wrap section">
+    <p class="eyebrow">Things I’ve made</p>
+    <h1>Games</h1>
+    <p class="muted intro">
+      Full projects, game-jam entries, little interactive toys and a few tools. Most of them run right in
+      your browser.
+    </p>
+
+    <div class="filters" role="group" aria-label="Filter projects">
+      {
+        filters.map((f, i) => (
+          <button type="button" data-filter={f.key} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {f.label} <span>{f.n}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid" id="game-grid">{games.map((g) => <GameCard game={g} />)}</div>
+  </div>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  const cards = document.querySelectorAll<HTMLElement>('#game-grid > [data-kind]');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      cards.forEach((c) => (c.hidden = f !== 'all' && c.dataset.kind !== f));
+    }),
+  );
+</script>
+
+<style>
+  .intro {
+    max-width: 58ch;
+    font-size: 1.1rem;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.8rem 0 1.6rem;
+  }
+  .filters button {
+    font: 600 0.9rem/1 var(--font-body);
+    padding: 0.6em 1em;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .filters button span {
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    color: var(--ink-faint);
+    margin-left: 0.2em;
+  }
+  .filters button:hover {
+    border-color: var(--ink-faint);
+  }
+  .filters button[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .filters button[aria-pressed='true'] span {
+    color: inherit;
+    opacity: 0.7;
+  }
+</style>

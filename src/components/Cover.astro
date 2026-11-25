@@ -1,0 +1,60 @@
+---
+// A game cover image, or a generated title card when there's no image.
+interface Props {
+  src?: string;
+  title: string;
+  seed: string;
+  ratio?: string;
+  eager?: boolean;
+}
+const { src, title, seed, ratio = '315 / 250', eager = false } = Astro.props;
+
+// Stable hue from the id so each placeholder gets its own colour.
+let h = 0;
+for (const ch of seed) h = (h * 31 + ch.charCodeAt(0)) % 360;
+---
+
+<div class="cover" style={`aspect-ratio:${ratio};--h:${h}`}>
+  {
+    src ? (
+      <img src={src} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    ) : (
+      <div class="art" aria-hidden="true">
+        <span>{title}</span>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .cover {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-sunken);
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: auto;
+  }
+  .art {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 1.2rem;
+    text-align: center;
+    background:
+      radial-gradient(circle at 20% 20%, hsl(var(--h) 90% 65% / 0.9), transparent 55%),
+      radial-gradient(circle at 85% 80%, hsl(calc(var(--h) + 60) 85% 55% / 0.85), transparent 60%),
+      repeating-linear-gradient(45deg, hsl(var(--h) 30% 14%) 0 10px, hsl(var(--h) 30% 18%) 10px 20px);
+  }
+  .art span {
+    font: 800 clamp(1.3rem, 3.2vw, 1.9rem) / 1 var(--font-display);
+    letter-spacing: -0.03em;
+    color: #fff;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+</style>

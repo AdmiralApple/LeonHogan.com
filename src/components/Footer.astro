@@ -1,0 +1,73 @@
+---
+import { SITE, SOCIALS, NAV } from '../site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <p class="sig">{SITE.name}</p>
+      <p class="muted small">{SITE.tagline}</p>
+    </div>
+    <ul class="links">
+      {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+    <ul class="links">
+      {SOCIALS.map((s) => <li><a href={s.href} rel="me noopener" target="_blank">{s.label} ↗</a></li>)}
+    </ul>
+  </div>
+  <div class="wrap fine">© {year} {SITE.name}</div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 48px;
+    border-top: 1px solid var(--line);
+    background: var(--bg-sunken);
+    padding-block: 40px 28px;
+    font-size: 0.95rem;
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 28px;
+  }
+  .sig {
+    font: 800 1.3rem/1 var(--font-display);
+    margin-bottom: 0.5rem;
+  }
+  .small {
+    font-size: 0.92rem;
+    max-width: 36ch;
+  }
+  .links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+  .links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+  }
+  .links a:hover {
+    color: var(--accent);
+  }
+  .fine {
+    margin-top: 28px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+  }
+  @media (max-width: 640px) {
+    .cols {
+      grid-template-columns: 1fr 1fr;
+    }
+    .cols > div:first-child {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

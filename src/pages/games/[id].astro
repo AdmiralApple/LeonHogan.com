@@ -1,0 +1,172 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import GameCard from '../../components/GameCard.astro';
+import { getGames } from '../../lib/games';
+import { KIND_LABEL, STATUS_LABEL } from '../../site';
+
+export async function getStaticPaths() {
+  const games = await getGames();
+  return games.map((game) => ({ params: { id: game.id }, props: { game, games } }));
+}
+
+const { game, games } = Astro.props;
+const g = game.data;
+const { Content } = await render(game);
+const more = games.filter((x) => x.id !== game.id).slice(0, 3);
+
+const buttons = [
+  g.links.play && { href: g.links.play, label: '▶ Play in browser', primary: true },
+  g.links.site && { href: g.links.site, label: 'Visit the game’s site', primary: !g.links.play },
+  g.links.steam && { href: g.links.steam, label: 'Steam' },
+  g.links.itch && g.links.itch !== g.links.play && { href: g.links.itch, label: 'itch.io page', primary: !g.links.play && !g.links.site },
+  g.links.trailer && { href: g.links.trailer, label: 'Trailer' },
+  g.links.source && { href: g.links.source, label: 'Source code' },
+].filter(Boolean) as { href: string; label: string; primary?: boolean }[];
+
+const facts = [
+  ['Type', g.jam ? 'Game jam' : KIND_LABEL[g.kind]],
+  ['Status', STATUS_LABEL[g.status]],
+  ['Year', String(g.year)],
+  ['Engine', g.engine],
+  ['Platforms', g.platforms.join(', ')],
+  ['Jam', g.jam],
+  ['Credits', g.credits],
+].filter(([, v]) => v) as [string, string][];
+---
+
+<Base title={g.title} description={g.tagline} image={g.cover}>
+  <article class="wrap section">
+    <a class="back more-link" href="/games/">← All games</a>
+    <header class="head">
+      <div>
+        <p class="eyebrow">{g.jam ?? KIND_LABEL[g.kind]}</p>
+        <h1>{g.title}</h1>
+        <p class="tagline">{g.tagline}</p>
+        {
+          buttons.length > 0 && (
+            <div class="btn-row">
+              {buttons.map((b) => (
+                <a class:list={['btn', { primary: b.primary }]} href={b.href} target="_blank" rel="noopener">
+                  {b.label}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+      <div class="shot">
+        <Cover src={g.cover} title={g.title} seed={game.id} eager />
+      </div>
+    </header>
+
+    <div class="layout">
+      <div class="prose"><Content /></div>
+      <aside>
+        <dl>
+          {
+            facts.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        {
+          g.tags.length > 0 && (
+            <ul class="tags">
+              {g.tags.map((t) => (
+                <li class="pill">{t}</li>
+              ))}
+            </ul>
+          )
+        }
+      </aside>
+    </div>
+
+    <section class="more">
+      <h2>More games</h2>
+      <div class="grid">{more.map((x) => <GameCard game={x} />)}</div>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+  }
+  .back::after {
+    content: none;
+  }
+  .head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 4vw, 48px);
+    align-items: center;
+    margin-bottom: clamp(32px, 5vw, 56px);
+  }
+  .tagline {
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 40ch;
+    margin-bottom: 1.5rem;
+  }
+  .shot {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    transform: rotate(1.2deg);
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+  aside {
+    position: sticky;
+    top: 88px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  dl {
+    margin: 0 0 1rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+  dt {
+    font: 600 0.68rem/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.25rem;
+  }
+  dd {
+    margin: 0;
+    font-weight: 600;
+  }
+  .more {
+    margin-top: clamp(48px, 8vw, 88px);
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 860px) {
+    .head,
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    .shot {
+      transform: none;
+      order: -1;
+    }
+    aside {
+      position: static;
+    }
+  }
+</style>

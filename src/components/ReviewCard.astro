@@ -1,0 +1,117 @@
+---
+import type { Review } from '../lib/reviews';
+import { formatDate, scoreBand } from '../site';
+
+interface Props {
+  review: Review;
+}
+const { review: r } = Astro.props;
+const statusClass = r.status.toLowerCase().replace(/\s+/g, '-');
+---
+
+<article
+  class="review"
+  id={r.id}
+  data-status={r.status}
+  data-rating={r.rating ?? ''}
+  data-date={r.date ?? ''}
+  data-title={r.title.toLowerCase()}
+>
+  <div class="art">
+    {r.cover ? <img src={r.cover} alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" /> : <span>{r.title}</span>}
+    {
+      r.rating !== null && (
+        <span class={`score ${scoreBand(r.rating)}`} aria-label={`${r.rating} out of 10`}>
+          {r.rating}
+        </span>
+      )
+    }
+  </div>
+  <div class="body">
+    <h3>{r.title}</h3>
+    <div class="meta">
+      <span class={`status ${statusClass}`}>{r.status}</span>
+      {r.date && <time datetime={r.date}>{formatDate(r.date)}</time>}
+    </div>
+    {r.feelings && <p>{r.feelings}</p>}
+  </div>
+</article>
+
+<style>
+  .review {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .art {
+    position: relative;
+    aspect-ratio: 460 / 215;
+    background: var(--bg-sunken);
+    display: grid;
+    place-items: center;
+  }
+  .art img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .art > span:first-child {
+    padding: 1rem;
+    font: 800 1.2rem/1.1 var(--font-display);
+    text-align: center;
+    color: var(--ink-faint);
+  }
+  .score {
+    position: absolute;
+    right: 10px;
+    bottom: -18px;
+    z-index: 1;
+    box-shadow: 0 0 0 3px var(--bg-raised);
+  }
+  .body {
+    padding: 14px 16px 16px;
+  }
+  h3 {
+    font-size: 1.08rem;
+    margin: 0 3rem 0.35rem 0;
+  }
+  .meta {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font: 600 0.74rem/1 var(--font-mono);
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+  }
+  .status {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .status::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 0.4em;
+    vertical-align: 0.05em;
+  }
+  .completed { color: var(--great); }
+  .playing { color: var(--teal); }
+  .dropped { color: var(--bad); }
+  .on-hold { color: var(--meh); }
+  p {
+    margin: 0;
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+</style>

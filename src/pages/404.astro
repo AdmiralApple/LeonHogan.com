@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not found">
+  <div class="wrap section nf">
+    <p class="code">404</p>
+    <h1>Game over.</h1>
+    <p class="muted">That page doesn’t exist. Maybe it was a prototype.</p>
+    <div class="btn-row">
+      <a class="btn primary" href="/">Continue? ▶</a>
+      <a class="btn" href="/games/">Browse games</a>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .nf {
+    text-align: center;
+    padding-block: 100px;
+  }
+  .code {
+    font: 800 clamp(5rem, 18vw, 9rem) / 1 var(--font-mono);
+    color: var(--accent);
+    margin: 0;
+    letter-spacing: -0.06em;
+  }
+  .btn-row {
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+</style>

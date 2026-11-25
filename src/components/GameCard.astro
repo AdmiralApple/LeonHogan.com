@@ -1,0 +1,85 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { KIND_LABEL, STATUS_LABEL } from '../site';
+import Cover from './Cover.astro';
+
+interface Props {
+  game: CollectionEntry<'games'>;
+}
+const { game } = Astro.props;
+const g = game.data;
+---
+
+<article class="card" data-kind={g.kind}>
+  <a class="hit" href={`/games/${game.id}/`} aria-label={g.title}></a>
+  <Cover src={g.cover} title={g.title} seed={game.id} />
+  <div class="body">
+    <div class="meta">
+      <span class="pill accent">{g.jam ? 'Game jam' : KIND_LABEL[g.kind]}</span>
+      {g.status !== 'released' && <span class="pill">{STATUS_LABEL[g.status]}</span>}
+      <span class="year">{g.year}</span>
+    </div>
+    <h3>{g.title}</h3>
+    <p>{g.tagline}</p>
+    {g.links.play && <span class="play">▶ Play in browser</span>}
+  </div>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  .card:hover h3 {
+    color: var(--accent);
+  }
+  .hit {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+  .body {
+    padding: 16px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.7rem;
+  }
+  .year {
+    margin-left: auto;
+    font: 600 0.78rem/1 var(--font-mono);
+    color: var(--ink-faint);
+  }
+  h3 {
+    margin-bottom: 0.35rem;
+    transition: color 0.15s ease;
+  }
+  p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  .play {
+    margin-top: auto;
+    padding-top: 0.9rem;
+    font: 700 0.78rem/1 var(--font-mono);
+    color: var(--teal);
+  }
+</style>
