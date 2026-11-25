@@ -1,8 +1,40 @@
 {
-  "version": 1793196787981,
-  "exportedAt": "2026-10-28T14:13:07.981Z",
+  "version": 1795632523183,
+  "exportedAt": "2026-11-25T18:48:43.183Z",
   "note": "Committed from the Leon's Game Reviews app.",
   "games": [
+    {
+      "status": "On Hold",
+      "title": "Finals Week",
+      "rating": null,
+      "date": null,
+      "feelings": "Very fun concept executed pretty well.  Kinda reminds me of that Naruto episode where they all cheat in the exam.  hope they improve it with more levels in the future!",
+      "id": "finals-week-mwwh8n3m"
+    },
+    {
+      "status": "Completed",
+      "title": "Gladio Mori",
+      "rating": 8,
+      "date": "2026-11-25",
+      "feelings": "Fun gameplay, good balance, modability, multiplayer.  This is a fun phyiscs based fighter that actually feels fun to play.",
+      "id": "gladio-mori-mwwh6sze"
+    },
+    {
+      "status": "Dropped",
+      "title": "Birds of War",
+      "rating": 3,
+      "date": "2026-11-25",
+      "feelings": "Good premise, but poor execution.  3d combat with tiny birds just doesnt work.  half the game youll be panning up and down trying to find the guy youre fighting.",
+      "id": "birds-of-war-mwwh5bv5"
+    },
+    {
+      "status": "Completed",
+      "title": "Rob Run",
+      "rating": 5,
+      "date": "2026-11-25",
+      "feelings": "Rob Run is essentially a roblox game.  it has decent mechanics, good balance, and made attempts to ban hackers.  fun with friends.",
+      "id": "rob-run-mwwh49dg"
+    },
     {
       "status": "Dropped",
       "title": "Coupling",

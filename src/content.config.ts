@@ -31,10 +31,10 @@ const games = defineCollection({
   }),
 });
 
-// Game reviews come straight from the Leon's Game Reviews app export.
+// Game reviews come from the Leon's Game Reviews app (mirrored into public/reviews/).
 // Run `npm run sync-reviews` to pull the latest library.json + covers.
 const reviews = defineCollection({
-  loader: file('src/data/library.json', { parser: (text) => JSON.parse(text).games }),
+  loader: file('public/reviews/library.json', { parser: (text) => JSON.parse(text).games }),
   schema: z.object({
     id: z.string(),
     title: z.string(),
@@ -46,7 +46,7 @@ const reviews = defineCollection({
 });
 
 const covers = defineCollection({
-  loader: file('src/data/steam-covers.json', { parser: (text) => JSON.parse(text).covers }),
+  loader: file('public/reviews/steam-covers.json', { parser: (text) => JSON.parse(text).covers }),
   schema: z.object({
     url: z.string(),
     name: z.string().optional(),
