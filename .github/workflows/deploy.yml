@@ -4,7 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # Rebuild daily so the review log picks up anything new from Leons-Game-Reviews.
+  # Leons-Game-Reviews sends this whenever the review log changes.
+  repository_dispatch:
+    types: [reviews-updated]
+  # Daily safety net in case a trigger is ever missed.
   schedule:
     - cron: '0 9 * * *'
 
