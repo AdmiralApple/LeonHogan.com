@@ -4,7 +4,30 @@
     {
       "name": "site",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "port": 4321
+    },
+    {
+      "name": "combobulate-api",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "combobulate-api",
+        "run",
+        "dev:mock"
+      ],
+      "port": 8787
+    },
+    {
+      "name": "site-build-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview"
+      ],
       "port": 4321
     }
   ]

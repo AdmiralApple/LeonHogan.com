@@ -1,0 +1,654 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base title="Combobulate" description="Smash two things together and see what an AI thinks they make. Everything anyone discovers is shared.">
+  <section class="wrap cb">
+    <header class="cb-head">
+      <div>
+        <p class="eyebrow">Toy · AI</p>
+        <h1>Combobulate</h1>
+        <p class="cb-lede">Drag one thing onto another and see what they make. Start with four elements and see how far you get.</p>
+      </div>
+      <div class="cb-actions">
+        <button class="btn" type="button" id="cb-clear">Clear board</button>
+        <button class="btn" type="button" id="cb-reset">Reset progress</button>
+      </div>
+    </header>
+
+    <div class="cb-game">
+      <div class="cb-board" id="cb-board" aria-label="Combining board">
+        <p class="cb-hint" id="cb-hint">Drag things here from the shelf (or tap them), then drop one onto another.</p>
+      </div>
+
+      <aside class="cb-shelf" aria-label="Things you've found">
+        <div class="cb-shelf-top">
+          <input id="cb-search" type="search" placeholder="Search…" autocomplete="off" aria-label="Search things you've found" />
+          <span class="cb-count" id="cb-count"></span>
+        </div>
+        <ul class="cb-list" id="cb-list"></ul>
+      </aside>
+    </div>
+
+    <p class="cb-foot muted">
+      Each new pair is asked of a small AI model once, then saved for everyone, so the same pair always makes the same thing.
+      A <span class="cb-star">★</span> marks things you were the first person ever to make.
+    </p>
+
+    <div class="cb-toast" id="cb-toast" role="status" aria-live="polite" hidden></div>
+  </section>
+</Base>
+
+<style is:global>
+  .cb {
+    padding-block: clamp(20px, 4vw, 40px) clamp(32px, 6vw, 64px);
+  }
+  .cb-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-bottom: 20px;
+  }
+  .cb-head h1 {
+    margin: 0.1em 0 0.15em;
+  }
+  .cb-lede {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 52ch;
+  }
+  .cb-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .cb-actions .btn.armed {
+    background: var(--bad);
+    border-color: var(--bad);
+    color: #fff;
+  }
+
+  .cb-game {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 14px;
+    height: clamp(440px, 72vh, 780px);
+  }
+  .cb-board {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background-color: var(--bg-sunken);
+    background-image: radial-gradient(color-mix(in srgb, var(--ink) 14%, transparent) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    touch-action: none;
+  }
+  .cb-hint {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 24px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    pointer-events: none;
+  }
+  .cb-hint[hidden] {
+    display: none;
+  }
+
+  .cb-shelf {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+  }
+  .cb-shelf-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .cb-shelf-top input {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    font-size: 0.95rem;
+    padding: 0.45em 0.7em;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .cb-count {
+    font: 700 0.75rem/1 var(--font-mono);
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .cb-list {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .cb-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.32em 0.7em;
+    border: 1px solid var(--line);
+    border-bottom-width: 3px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-raised);
+    color: var(--ink);
+    font: 600 0.95rem/1.2 var(--font-body);
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: grab;
+  }
+  .cb-chip .e {
+    font-size: 1.1em;
+  }
+  .cb-chip .star {
+    color: var(--accent);
+    font-size: 0.8em;
+  }
+  button.cb-chip:hover {
+    border-color: var(--accent);
+  }
+  .cb-list .cb-chip.fresh {
+    animation: cb-fresh 1.6s ease-out;
+  }
+  .cb-board .cb-chip,
+  .cb-chip.dragging {
+    position: absolute;
+    touch-action: none;
+    box-shadow: var(--shadow);
+  }
+  .cb-chip.dragging {
+    position: fixed;
+    z-index: 1000;
+    cursor: grabbing;
+    transform: scale(1.06) rotate(-2deg);
+    pointer-events: none;
+  }
+  .cb-chip.target {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .cb-chip.busy {
+    animation: cb-pulse 0.7s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .cb-chip.pop {
+    animation: cb-pop 0.35s cubic-bezier(0.3, 1.6, 0.6, 1);
+  }
+  .cb-chip.nope {
+    animation: cb-nope 0.35s ease-in-out;
+  }
+  .cb-chip.first {
+    border-color: var(--accent);
+  }
+
+  .cb-foot {
+    margin-top: 14px;
+    font-size: 0.9rem;
+  }
+  .cb-star {
+    color: var(--accent);
+  }
+  .cb-toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    transform: translateX(-50%);
+    z-index: 1100;
+    max-width: min(92vw, 520px);
+    padding: 0.7em 1.1em;
+    border-radius: var(--radius-sm);
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .cb-toast.first {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  @keyframes cb-pulse {
+    to {
+      opacity: 0.55;
+      transform: scale(0.96);
+    }
+  }
+  @keyframes cb-pop {
+    from {
+      transform: scale(0.4);
+    }
+  }
+  @keyframes cb-nope {
+    25% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+  }
+  @keyframes cb-fresh {
+    from {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cb-chip.busy,
+    .cb-chip.pop,
+    .cb-chip.nope,
+    .cb-list .cb-chip.fresh {
+      animation: none;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .cb-game {
+      grid-template-columns: 1fr;
+      grid-template-rows: minmax(320px, 58vh) minmax(220px, auto);
+      height: auto;
+    }
+    .cb-list {
+      max-height: 40vh;
+    }
+  }
+</style>
+
+<script>
+  import { COMBOBULATE_API } from '../../site';
+
+  type Thing = { name: string; emoji: string; first?: boolean };
+  type Placed = { id: number; name: string; emoji: string; x: number; y: number };
+  type Save = { found: Thing[]; board: Placed[]; recipes: Record<string, Thing | null> };
+
+  const API = import.meta.env.DEV ? 'http://localhost:8787' : COMBOBULATE_API;
+  const STORE = 'combobulate:v1';
+  const START: Thing[] = [
+    { name: 'Water', emoji: '💧' },
+    { name: 'Fire', emoji: '🔥' },
+    { name: 'Earth', emoji: '🌍' },
+    { name: 'Air', emoji: '💨' },
+  ];
+
+  const board = document.getElementById('cb-board') as HTMLDivElement;
+  const list = document.getElementById('cb-list') as HTMLUListElement;
+  const search = document.getElementById('cb-search') as HTMLInputElement;
+  const count = document.getElementById('cb-count') as HTMLSpanElement;
+  const hint = document.getElementById('cb-hint') as HTMLParagraphElement;
+  const toastEl = document.getElementById('cb-toast') as HTMLDivElement;
+  const shelf = list.closest('aside') as HTMLElement;
+
+  // ---------- Saved state ----------
+  const save: Save = load();
+  let nextId = save.board.reduce((m, p) => Math.max(m, p.id), 0) + 1;
+  const chipEls = new Map<number, HTMLElement>();
+
+  function load(): Save {
+    try {
+      const s = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (s && Array.isArray(s.found) && s.found.length) {
+        return { found: s.found, board: Array.isArray(s.board) ? s.board : [], recipes: s.recipes || {} };
+      }
+    } catch {}
+    return { found: START.map((t) => ({ ...t })), board: [], recipes: {} };
+  }
+  function persist() {
+    try {
+      localStorage.setItem(STORE, JSON.stringify(save));
+    } catch {}
+  }
+
+  const key = (s: string) => s.trim().replace(/\s+/g, ' ').toLowerCase();
+  const pairKey = (a: string, b: string) => [key(a), key(b)].sort().join('|');
+
+  // ---------- Shelf ----------
+  function renderShelf(fresh?: string) {
+    const q = key(search.value);
+    list.replaceChildren();
+    for (const t of save.found) {
+      if (q && !key(t.name).includes(q)) continue;
+      const li = document.createElement('li');
+      const b = chip(t, 'button');
+      if (fresh && key(t.name) === fresh) b.classList.add('fresh');
+      b.addEventListener('pointerdown', (e) => shelfPointerDown(e, t));
+      b.addEventListener('click', () => {
+        if (suppressClick) return;
+        const r = board.getBoundingClientRect();
+        placeNew(t, r.width / 2 - 50 + rand(80), r.height / 2 - 16 + rand(80));
+      });
+      li.append(b);
+      list.append(li);
+    }
+    count.textContent = `${save.found.length} found`;
+  }
+  const rand = (n: number) => Math.round((Math.random() - 0.5) * n);
+
+  function chip(t: Thing, tag: 'button' | 'div') {
+    const el = document.createElement(tag);
+    el.className = 'cb-chip';
+    if (tag === 'button') (el as HTMLButtonElement).type = 'button';
+    const e = document.createElement('span');
+    e.className = 'e';
+    e.textContent = t.emoji;
+    const n = document.createElement('span');
+    n.textContent = t.name;
+    el.append(e, n);
+    if (t.first) {
+      const s = document.createElement('span');
+      s.className = 'star';
+      s.textContent = '★';
+      s.title = 'You made this first';
+      el.append(s);
+      el.classList.add('first');
+    }
+    return el;
+  }
+
+  // ---------- Board ----------
+  function renderBoard() {
+    for (const el of chipEls.values()) el.remove();
+    chipEls.clear();
+    for (const p of save.board) mount(p);
+    updateHint();
+  }
+  function updateHint() {
+    hint.hidden = save.board.length > 0;
+  }
+  function mount(p: Placed, anim = false) {
+    const t = save.found.find((f) => key(f.name) === key(p.name));
+    const el = chip({ name: p.name, emoji: p.emoji, first: t?.first }, 'div');
+    el.dataset.id = String(p.id);
+    if (anim) el.classList.add('pop');
+    el.addEventListener('pointerdown', (e) => boardPointerDown(e, p, el));
+    el.addEventListener('dblclick', () => placeNew(p, p.x + 14, p.y + 14));
+    board.append(el);
+    // Keep it fully on the board (a save from a wide screen may be opened on a phone).
+    p.x = clamp(p.x, 0, Math.max(0, board.clientWidth - el.offsetWidth));
+    p.y = clamp(p.y, 0, Math.max(0, board.clientHeight - el.offsetHeight));
+    el.style.left = `${p.x}px`;
+    el.style.top = `${p.y}px`;
+    chipEls.set(p.id, el);
+    return el;
+  }
+  const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
+  function placeNew(t: Thing, x: number, y: number, anim = true) {
+    const p: Placed = { id: nextId++, name: t.name, emoji: t.emoji, x, y };
+    save.board.push(p);
+    mount(p, anim);
+    updateHint();
+    persist();
+    return p;
+  }
+  function removePlaced(p: Placed) {
+    save.board = save.board.filter((q) => q.id !== p.id);
+    chipEls.get(p.id)?.remove();
+    chipEls.delete(p.id);
+    updateHint();
+  }
+
+  // ---------- Dragging ----------
+  let suppressClick = false;
+
+  function shelfPointerDown(e: PointerEvent, t: Thing) {
+    // Touch scrolls the shelf; tapping adds to the board. Mouse and pen can drag straight out.
+    if (e.pointerType === 'touch' || e.button !== 0) return;
+    const sx = e.clientX;
+    const sy = e.clientY;
+    suppressClick = false;
+    const move = (m: PointerEvent) => {
+      if (Math.hypot(m.clientX - sx, m.clientY - sy) < 5) return;
+      cleanup();
+      suppressClick = true;
+      const el = chip(t, 'div');
+      el.classList.add('dragging'); // fixed position first, so it measures at its own width
+      document.body.append(el);
+      const w = el.offsetWidth;
+      drag(el, m, w / 2, 16, (x, y) => {
+        setTimeout(() => (suppressClick = false), 0);
+        el.remove();
+        const r = board.getBoundingClientRect();
+        if (!inside(x + w / 2, y + 16, r)) return;
+        const p = placeNew(t, x - r.left, y - r.top, false);
+        afterDrop(p);
+      });
+    };
+    const cleanup = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', cleanup);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', cleanup);
+  }
+
+  function boardPointerDown(e: PointerEvent, p: Placed, el: HTMLElement) {
+    if (e.button !== 0) return;
+    e.preventDefault();
+    const rect = el.getBoundingClientRect();
+    drag(el, e, e.clientX - rect.left, e.clientY - rect.top, (x, y) => {
+      board.append(el); // back in the board first, so it measures at its own size again
+      const r = board.getBoundingClientRect();
+      const s = shelf.getBoundingClientRect();
+      const cx = x + el.offsetWidth / 2;
+      const cy = y + el.offsetHeight / 2;
+      if (inside(cx, cy, s)) {
+        removePlaced(p); // dropped back on the shelf: put it away
+        persist();
+        return;
+      }
+      p.x = clamp(x - r.left, 0, Math.max(0, board.clientWidth - el.offsetWidth));
+      p.y = clamp(y - r.top, 0, Math.max(0, board.clientHeight - el.offsetHeight));
+      el.style.left = `${p.x}px`;
+      el.style.top = `${p.y}px`;
+      afterDrop(p);
+    });
+  }
+
+  /** Follows the pointer with a fixed-position chip; calls done(viewportX, viewportY) on release. */
+  function drag(el: HTMLElement, e: PointerEvent, offX: number, offY: number, done: (x: number, y: number) => void) {
+    el.classList.add('dragging');
+    document.body.append(el);
+    let x = e.clientX - offX;
+    let y = e.clientY - offY;
+    let target: HTMLElement | null = null;
+    const place = () => {
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+      const hit = findOverlap(el.getBoundingClientRect(), Number(el.dataset.id || 0));
+      if (hit?.el !== target) {
+        target?.classList.remove('target');
+        target = hit?.el ?? null;
+        target?.classList.add('target');
+      }
+    };
+    place();
+    const move = (m: PointerEvent) => {
+      x = m.clientX - offX;
+      y = m.clientY - offY;
+      place();
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+      window.removeEventListener('pointercancel', up);
+      target?.classList.remove('target');
+      el.classList.remove('dragging');
+      done(x, y);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+    window.addEventListener('pointercancel', up);
+  }
+
+  const inside = (x: number, y: number, r: DOMRect) => x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+
+  function findOverlap(r: DOMRect, selfId: number) {
+    let best: { p: Placed; el: HTMLElement } | null = null;
+    let bestArea = 0;
+    for (const p of save.board) {
+      if (p.id === selfId) continue;
+      const el = chipEls.get(p.id);
+      if (!el || el.classList.contains('busy')) continue;
+      const o = el.getBoundingClientRect();
+      const w = Math.min(r.right, o.right) - Math.max(r.left, o.left);
+      const h = Math.min(r.bottom, o.bottom) - Math.max(r.top, o.top);
+      if (w > 0 && h > 0 && w * h > bestArea) {
+        bestArea = w * h;
+        best = { p, el };
+      }
+    }
+    return best;
+  }
+
+  function afterDrop(p: Placed) {
+    const el = chipEls.get(p.id)!;
+    const hit = findOverlap(el.getBoundingClientRect(), p.id);
+    persist();
+    if (hit) combine(p, hit.p);
+  }
+
+  // ---------- Combining ----------
+  async function combine(a: Placed, b: Placed) {
+    const ea = chipEls.get(a.id)!;
+    const eb = chipEls.get(b.id)!;
+    ea.classList.add('busy');
+    eb.classList.add('busy');
+
+    let result: Thing | null = null;
+    let isNew = false;
+    const pk = pairKey(a.name, b.name);
+    try {
+      if (pk in save.recipes) {
+        result = save.recipes[pk];
+      } else {
+        ({ result, isNew } = await ask(a.name, b.name));
+        save.recipes[pk] = result;
+      }
+    } catch (err) {
+      ea.classList.remove('busy');
+      eb.classList.remove('busy');
+      toast((err as Error).message);
+      return;
+    }
+    ea.classList.remove('busy');
+    eb.classList.remove('busy');
+
+    if (!result) {
+      for (const el of [ea, eb]) {
+        el.classList.remove('nope');
+        void el.offsetWidth;
+        el.classList.add('nope');
+      }
+      persist();
+      return;
+    }
+
+    const mx = (a.x + ea.offsetWidth / 2 + b.x + eb.offsetWidth / 2) / 2;
+    const my = (a.y + ea.offsetHeight / 2 + b.y + eb.offsetHeight / 2) / 2;
+    removePlaced(a);
+    removePlaced(b);
+
+    const already = save.found.some((f) => key(f.name) === key(result!.name));
+    if (!already) save.found.push({ ...result, first: isNew || undefined });
+    const p = placeNew(result, 0, 0);
+    const el = chipEls.get(p.id)!;
+    p.x = mx - el.offsetWidth / 2;
+    p.y = my - el.offsetHeight / 2;
+    el.remove();
+    chipEls.delete(p.id);
+    mount(p, true);
+    persist();
+
+    if (!already) renderShelf(key(result.name));
+    if (isNew) toast(`★ First discovery! Nobody had ever made ${result.emoji} ${result.name} before.`, true);
+  }
+
+  async function ask(first: string, second: string): Promise<{ result: Thing | null; isNew: boolean }> {
+    if (!API) throw new Error('Combobulate isn’t connected to its server yet.');
+    let res: Response;
+    try {
+      const q = new URLSearchParams({ first, second });
+      res = await fetch(`${API}/pair?${q}`, { signal: AbortSignal.timeout(15000) });
+    } catch {
+      throw new Error('Couldn’t reach the combobulator. Check your connection and try again.');
+    }
+    const body = await res.json().catch(() => ({}));
+    if (res.ok) return { result: body.result ?? null, isNew: !!body.isNew };
+    const messages: Record<string, string> = {
+      ai_resting:
+        'The AI has used up today’s free allowance. Pairs people already found still work; brand-new ones come back after midnight UTC.',
+      visitor_limit: 'You’ve invented a lot today! New pairs unlock again tomorrow. Already-found pairs still work.',
+      no_answer: 'The AI couldn’t come up with anything for that pair right now. Try it again later.',
+      unknown_element: 'The server doesn’t know one of those. Try Reset progress if this keeps happening.',
+    };
+    throw new Error(messages[body.error] ?? 'Something went wrong combining those. Try again.');
+  }
+
+  // ---------- Toast ----------
+  let toastTimer = 0;
+  function toast(text: string, first = false) {
+    toastEl.textContent = text;
+    toastEl.classList.toggle('first', first);
+    toastEl.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => (toastEl.hidden = true), first ? 4500 : 6000);
+  }
+
+  // ---------- Buttons ----------
+  document.getElementById('cb-clear')!.addEventListener('click', () => {
+    save.board = [];
+    renderBoard();
+    persist();
+  });
+  const resetBtn = document.getElementById('cb-reset') as HTMLButtonElement;
+  let resetTimer = 0;
+  resetBtn.addEventListener('click', () => {
+    if (!resetBtn.classList.contains('armed')) {
+      resetBtn.classList.add('armed');
+      resetBtn.textContent = 'Click again to erase everything';
+      resetTimer = window.setTimeout(disarm, 3500);
+      return;
+    }
+    disarm();
+    save.found = START.map((t) => ({ ...t }));
+    save.board = [];
+    save.recipes = {};
+    persist();
+    renderShelf();
+    renderBoard();
+  });
+  function disarm() {
+    clearTimeout(resetTimer);
+    resetBtn.classList.remove('armed');
+    resetBtn.textContent = 'Reset progress';
+  }
+  search.addEventListener('input', () => renderShelf());
+
+  renderShelf();
+  renderBoard();
+</script>

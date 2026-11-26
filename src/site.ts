@@ -12,6 +12,10 @@ export const SOCIALS = [
   { label: 'Portfolio', href: 'https://elwoodhogan.com' },
 ];
 
+// Combobulate's backend (the Cloudflare Worker in combobulate-api/). While running `npm run dev`
+// the page talks to a local Worker on http://localhost:8787 instead.
+export const COMBOBULATE_API = 'https://combobulate-api.combobulate-api.workers.dev';
+
 export const NAV = [
   { label: 'Games', href: '/games/' },
   { label: 'Reviews', href: '/reviews/' },

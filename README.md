@@ -73,6 +73,7 @@ Your post, in Markdown.
 | Home page | `src/pages/index.astro` |
 | About page | `src/pages/about.astro` |
 | Content schemas | `src/content.config.ts` |
+| Combobulate (AI crafting toy) | page: `src/pages/combobulate/`, backend: `combobulate-api/` (see its README) |
 
 ## Deploying (GitHub Pages)
 

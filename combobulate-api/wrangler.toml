@@ -1,0 +1,41 @@
+# Cloudflare Worker that powers Combobulate (leonhogan.com/combobulate/).
+# Everything here fits in Cloudflare's free plan: no card needed, and nothing can bill you.
+name = "combobulate-api"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+
+# Workers AI. The free plan gives 10,000 "neurons" a day; past that, AI calls fail until
+# 00:00 UTC (they are not charged). Already-discovered recipes keep working, since they
+# come from the database.
+[ai]
+binding = "AI"
+
+# Every recipe and element ever made. Fill in database_id after `npx wrangler d1 create combobulate`.
+[[d1_databases]]
+binding = "DB"
+database_name = "combobulate"
+database_id = "5c9a3b81-3207-4303-acc3-a222594a5d3e"
+
+[vars]
+# Sites allowed to call this API from a browser.
+ALLOWED_ORIGINS = "https://leonhogan.com,https://www.leonhogan.com,http://localhost:4321"
+# Brand-new combinations one visitor can generate per day (looked-up ones are unlimited).
+DAILY_NEW_PER_VISITOR = "300"
+MODEL = "@cf/meta/llama-3.2-3b-instruct"
+# Your own llama.cpp server (see server/README.md), asked before Workers AI. Leave empty to skip it.
+# Its password goes in a secret, not here: `npx wrangler secret put LLM_TOKEN`
+LLM_URL = ""
+# How long to wait for your server before falling back to Workers AI.
+LLM_TIMEOUT_MS = "12000"
+
+# Offline testing with fake results and no Cloudflare login: `npm run dev:mock`.
+[env.mock]
+[[env.mock.d1_databases]]
+binding = "DB"
+database_name = "combobulate"
+database_id = "local-mock"
+
+[env.mock.vars]
+ALLOWED_ORIGINS = "http://localhost:4321"
+DAILY_NEW_PER_VISITOR = "300"
+MOCK_AI = "1"

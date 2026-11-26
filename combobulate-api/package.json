@@ -1,0 +1,16 @@
+{
+  "name": "combobulate-api",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:mock": "wrangler d1 execute combobulate --env mock --local --file=schema.sql && wrangler dev --env mock",
+    "deploy": "wrangler deploy",
+    "db:init:local": "wrangler d1 execute combobulate --local --file=schema.sql",
+    "db:init": "wrangler d1 execute combobulate --remote --file=schema.sql",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "wrangler": "4.160.0"
+  }
+}
