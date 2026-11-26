@@ -1,14 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SOCIALS } from '../site';
+import { SITE, SOCIALS } from '../site';
 ---
 
 <Base title="About" description="About Leon Hogan.">
   <div class="wrap section">
     <div class="about">
       <div>
-        <p class="eyebrow">About</p>
+        <p class="eyebrow">Game developer · Player · Critic</p>
         <h1>Hey, I’m Leon.</h1>
+        <p class="lede">{SITE.tagline}</p>
         <div class="prose">
           <p>
             I’m a software engineer who makes games: game-jam entries, prototypes, little interactive toys, and a
@@ -47,6 +48,12 @@ import { SOCIALS } from '../site';
     grid-template-columns: minmax(0, 1fr) 300px;
     gap: clamp(28px, 6vw, 72px);
     align-items: start;
+  }
+  .lede {
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin-bottom: 1.8rem;
   }
   aside {
     background: var(--bg-raised);

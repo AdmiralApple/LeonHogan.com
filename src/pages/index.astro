@@ -4,7 +4,7 @@ import GameCard from '../components/GameCard.astro';
 import ReviewCard from '../components/ReviewCard.astro';
 import { getGames, getPosts } from '../lib/games';
 import { getReviews, rated, played as getPlayed } from '../lib/reviews';
-import { SITE, formatDate } from '../site';
+import { formatDate } from '../site';
 
 const games = await getGames();
 const featured = games.filter((g) => g.data.featured).slice(0, 3);
@@ -20,9 +20,7 @@ const completed = allReviews.filter((r) => r.status === 'Completed').length;
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <p class="eyebrow">Game developer · Player · Critic</p>
-        <h1>Hi, I’m <span class="hl">Leon</span>.<br />I make games.</h1>
-        <p class="lede">{SITE.tagline}</p>
+        <h1>Welcome to <span class="hl">LeonHogan.com</span>.</h1>
         <div class="btn-row">
           <a class="btn primary" href="/games/">See my games</a>
           <a class="btn" href="/reviews/">Read my reviews</a>
@@ -107,15 +105,11 @@ const completed = allReviews.filter((r) => r.status === 'Completed').length;
     font-size: clamp(2.6rem, 7vw, 5rem);
     line-height: 0.98;
     letter-spacing: -0.04em;
+    margin-bottom: 1.8rem;
+    overflow-wrap: anywhere;
   }
   .hl {
     color: var(--accent);
-  }
-  .lede {
-    font-size: 1.2rem;
-    color: var(--ink-soft);
-    max-width: 42ch;
-    margin-bottom: 1.6rem;
   }
   .stats {
     display: grid;
