@@ -284,10 +284,13 @@ import Base from '../../layouts/Base.astro';
 
   type Thing = { name: string; emoji: string; first?: boolean };
   type Placed = { id: number; name: string; emoji: string; x: number; y: number };
-  type Save = { found: Thing[]; board: Placed[]; recipes: Record<string, Thing | null> };
+  type Save = { found: Thing[]; board: Placed[]; recipes: Record<string, Thing | null>; recipesVersion?: number };
 
   const API = import.meta.env.DEV ? 'http://localhost:8787' : COMBOBULATE_API;
   const STORE = 'combobulate:v1';
+  // Bump when recipes on the server are re-rolled: browsers then forget the answers they remembered
+  // (found things and the board are kept). 2 = recipes regenerated with Gemma 4, Nov 2026.
+  const RECIPES_VERSION = 2;
   const START: Thing[] = [
     { name: 'Water', emoji: '💧' },
     { name: 'Fire', emoji: '🔥' },
@@ -312,10 +315,16 @@ import Base from '../../layouts/Base.astro';
     try {
       const s = JSON.parse(localStorage.getItem(STORE) || 'null');
       if (s && Array.isArray(s.found) && s.found.length) {
-        return { found: s.found, board: Array.isArray(s.board) ? s.board : [], recipes: s.recipes || {} };
+        const fresh = s.recipesVersion === RECIPES_VERSION;
+        return {
+          found: s.found,
+          board: Array.isArray(s.board) ? s.board : [],
+          recipes: fresh && s.recipes ? s.recipes : {},
+          recipesVersion: RECIPES_VERSION,
+        };
       }
     } catch {}
-    return { found: START.map((t) => ({ ...t })), board: [], recipes: {} };
+    return { found: START.map((t) => ({ ...t })), board: [], recipes: {}, recipesVersion: RECIPES_VERSION };
   }
   function persist() {
     try {

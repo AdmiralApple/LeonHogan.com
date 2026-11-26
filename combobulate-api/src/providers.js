@@ -66,9 +66,29 @@ async function askWorkersAI(env, messages) {
     messages,
     max_tokens: 24,
     temperature: 0.5,
+    ...modelOptions(env),
   });
-  if (typeof out?.response !== 'string') throw new Error('unexpected response shape');
-  return out.response;
+  return workersAIText(out);
+}
+
+/** Extra per-model request options from MODEL_OPTIONS (JSON), e.g. turning a reasoning model's thinking off. */
+export function modelOptions(env) {
+  if (!env.MODEL_OPTIONS) return {};
+  try {
+    const opts = JSON.parse(env.MODEL_OPTIONS);
+    return opts && typeof opts === 'object' && !Array.isArray(opts) ? opts : {};
+  } catch {
+    console.warn('MODEL_OPTIONS is not valid JSON; ignoring it');
+    return {};
+  }
+}
+
+/** Workers AI models answer in one of two shapes: { response } or OpenAI-style { choices }. */
+export function workersAIText(out) {
+  if (typeof out?.response === 'string') return out.response;
+  const content = out?.choices?.[0]?.message?.content;
+  if (typeof content === 'string') return content;
+  throw new Error('unexpected response shape');
 }
 
 // Local testing without any AI: MOCK_AI=1 (see the [env.mock] section of wrangler.toml).

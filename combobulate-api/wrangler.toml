@@ -21,7 +21,12 @@ database_id = "5c9a3b81-3207-4303-acc3-a222594a5d3e"
 ALLOWED_ORIGINS = "https://leonhogan.com,https://www.leonhogan.com,http://localhost:4321"
 # Brand-new combinations one visitor can generate per day (looked-up ones are unlimited).
 DAILY_NEW_PER_VISITOR = "300"
-MODEL = "@cf/meta/llama-3.2-3b-instruct"
+# Gemma 4 26B won a 26-pair comparison (eval/results.md): ~3,200 new pairs/day on the free allowance.
+# For ~5,700/day at slightly lower quality: "@cf/zai-org/glm-4.7-flash" (keep MODEL_OPTIONS).
+MODEL = "@cf/google/gemma-4-26b-a4b-it"
+# Gemma 4 is a reasoning model; with thinking on it burns its whole answer budget and returns nothing.
+# Set to "" for models that don't take this option (e.g. the Llama ones).
+MODEL_OPTIONS = '{"chat_template_kwargs":{"enable_thinking":false}}'
 # Your own llama.cpp server (see server/README.md), asked before Workers AI. Leave empty to skip it.
 # Its password goes in a secret, not here: `npx wrangler secret put LLM_TOKEN`
 LLM_URL = ""

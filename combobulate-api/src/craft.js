@@ -32,6 +32,8 @@ export function firstEmoji(text) {
  */
 export function parseReply(raw) {
   let line = String(raw ?? '')
+    // Reasoning models (Qwen3, DeepSeek...) may think out loud first; only the answer after it counts.
+    .replace(/<think>[\s\S]*?(<\/think>|$)/gi, '')
     .split('\n')
     .map((l) => l.trim())
     .find((l) => l.length > 0);
@@ -70,6 +72,37 @@ export function isRefusal(raw) {
 
 /** Chat messages sent to the model for one pair. */
 export function buildPrompt(first, second) {
+  const system =
+    'You are the engine of a word-combining sandbox game for adults. Players combine two things and you name what they make.\n' +
+    'Rules:\n' +
+    '- Give the most obvious, common-sense result most people would guess. Think chemistry, nature, weather, cooking, ' +
+    'crafts, biology, tools, technology, history, culture and pop culture.\n' +
+    '- Make a genuinely new thing. Never answer with one of the inputs, a near-synonym of an input, or a made-up compound word.\n' +
+    '- A thing combined with itself becomes a bigger, stronger or grouped version of it.\n' +
+    '- Dark, violent, crude or adult results are fine when they are the logical result. It is only a word game: ' +
+    'never refuse, warn or explain.\n' +
+    '- Reply with exactly one line: Result | emoji (result is 1 to 3 words in Title Case; one emoji that fits it).';
+  const shots = [
+    ['Water', 'Fire', 'Steam | ♨️'],
+    ['Earth', 'Water', 'Mud | 🟤'],
+    ['Fire', 'Earth', 'Lava | 🌋'],
+    ['Water', 'Water', 'Lake | 🏞️'],
+    ['Lava', 'Air', 'Stone | 🪨'],
+    ['Plant', 'Time', 'Tree | 🌳'],
+    ['Human', 'Poison', 'Murder | 🔪'],
+    ['Steam', 'Engine', 'Train | 🚂'],
+  ];
+  const messages = [{ role: 'system', content: system }];
+  for (const [a, b, out] of shots) {
+    messages.push({ role: 'user', content: `${a} + ${b}` });
+    messages.push({ role: 'assistant', content: out });
+  }
+  messages.push({ role: 'user', content: `${first} + ${second}` });
+  return messages;
+}
+
+/** The first live prompt (Nov 2026), kept for comparison in eval/. */
+export function buildPromptV1(first, second) {
   const system =
     'You are the engine of a word-combining sandbox game for adults. The player smashes two things together and you say what they make. ' +
     'Reply with exactly one line: the result (1 to 3 words, Title Case), then " | ", then one emoji that fits it. ' +

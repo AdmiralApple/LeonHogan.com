@@ -66,3 +66,23 @@ test('refusal plus outage is an outage, not a no-answer', async () => {
   const env = { LLM_URL: 'https://llm.example', AI: brokenAI };
   await assert.rejects(generate(env, 'Human', 'Fire', okServer("I can't do that.")), (e) => e.name !== 'NoAnswerError');
 });
+
+test('MODEL_OPTIONS are passed to Workers AI (e.g. thinking off)', async () => {
+  let seen;
+  const env = {
+    MODEL: '@cf/google/gemma-4-26b-a4b-it',
+    MODEL_OPTIONS: '{"chat_template_kwargs":{"enable_thinking":false}}',
+    AI: { run: async (model, input) => { seen = { model, input }; return { choices: [{ message: { content: 'Brick | 🧱' } }] }; } },
+  };
+  assert.deepEqual(await generate(env, 'Fire', 'Mud'), { name: 'Brick', emoji: '🧱' });
+  assert.equal(seen.model, '@cf/google/gemma-4-26b-a4b-it');
+  assert.deepEqual(seen.input.chat_template_kwargs, { enable_thinking: false });
+  assert.equal(seen.input.max_tokens, 24);
+});
+
+test('bad or empty MODEL_OPTIONS are ignored', async () => {
+  const { modelOptions } = await import('../src/providers.js');
+  assert.deepEqual(modelOptions({ MODEL_OPTIONS: '' }), {});
+  assert.deepEqual(modelOptions({ MODEL_OPTIONS: 'not json' }), {});
+  assert.deepEqual(modelOptions({ MODEL_OPTIONS: '[1]' }), {});
+});

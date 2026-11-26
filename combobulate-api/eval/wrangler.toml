@@ -1,0 +1,8 @@
+# Local-only Worker for comparing models and prompts. Never deployed.
+#   npx wrangler dev -c eval/wrangler.toml --port 8791      then      node eval/run.mjs
+name = "combobulate-eval"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[ai]
+binding = "AI"
