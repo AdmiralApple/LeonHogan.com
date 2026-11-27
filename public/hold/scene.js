@@ -69,13 +69,13 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
 
   // ---------------------------------------------------------------------------------------------------- the timeline
   const STAGES = [
-    ['seed', 1.2], // the seed's noise, one octave at a time
-    ['strata', 1.4], // the rock appears, top to bottom
-    ['caves', 1.4], // caverns open, a lake fills them, magma glows
-    ['embark', 1.6], // trees grow, the gate rises, the dwarves arrive
-    ['dig', 3.0], // the hold is dug, outward from the gate
-    ['furnish', 1.6], // the rooms are furnished as the dwarves move in
-    ['lights', 1.4], // dark falls underground and the torches are lit
+    ['seed', 1.4], // the seed's noise, one octave at a time
+    ['strata', 2.8], // the rock condenses out of the noise
+    ['caves', 1.6], // caverns open, a lake fills them, magma glows
+    ['embark', 2], // trees grow, the gate rises, the first dwarves walk in (as long as the first one's walk: below)
+    ['dig', 600], // the dwarves dig the hold out, rooms furnished as each is finished (as long as it takes them: below)
+    ['furnish', 1.0], // the last things put in place
+    ['lights', 1.6], // dark falls underground and the torches are lit
     ['life', 6.0], // the dwarves at work: this stage only holds its caption, as life goes on for ever after it
   ];
   // T[stage] = [start, end] in seconds, the stages laid end to end. Laid out again once the hold is planned, since a
@@ -94,10 +94,10 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
   // every one of them was really called.
   const CAPTIONS = {
     seed: [`\`seedOf\`('${PHRASE}') = ${SEED}`, '`fractalNoise`, one octave at a time'],
-    strata: ['`noiseLine` · `ridgedNoise` · `ditheredBorder`', '`hueShiftTone` · `latticeRandom`'],
+    strata: ['rock out of noise: `ditheredBorder`', '`noiseLine` · `ridgedNoise` · `hueShiftTone`'],
     caves: ['`floodFill` · `untilSettled` · `capsuleSteps`', '`chamferDistance` · `waterPixel`'],
-    embark: ['`genomeFrom` · `layTemplate` · `outlineSprite`', '`formationSlot` · `footStep` · `leafCrown`'],
-    dig: ['`untilSettled`: ring by ring from the gate', '`wallShade` · `lineCells`'],
+    embark: ['`genomeFrom` · `layTemplate` · `outlineSprite`', '`footStep` · `leafCrown` · `barkTrunk`'],
+    dig: ['the dwarves dig it out, nearest rock first', '`untilSettled` · `wallShade` · `lineCells`'],
     furnish: ['`spriteFromRows` · `dampedSpring` · `blitSway`', '`gridAStar` · `strideRate`'],
     lights: ['`segmentClear` · `scalePacked` · `mixPacked`', '`scatterAlong`'],
     life: ['`crossGenomes` · `gridAStar` · `nearestFreeCell`', '`flockStep` · `rise` · `fall` · `blink`'],
@@ -142,36 +142,52 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
     darkness: opts.darkness === undefined ? 1 : opts.darkness };
   const look = makeLook(k),
     world = buildWorld(k, look);
-  // The dig takes as long as the hold is deep: about 36 rings of tiles a second out from the gate (3 seconds or more,
-  // 16 at most), and furnishing a big hold takes a little longer too. Everything after moves along to make room.
-  const stage = (key) => STAGES.find((s) => s[0] === key);
-  stage('dig')[1] = opts.dig || clamp(world.MAXD / 36, 3, 16);
-  stage('furnish')[1] = clamp(world.MAXD / 100, 1.6, 4);
-  lay();
-  k.DUR = DUR;
   const pics = makeSprites(k, look),
     life = makeLife(k, look, world),
     draw = makeDrawing(k, look, world, pics, life);
-
+  // The arrival lasts as long as the first dwarf's walk over the grass to the gate. How long the dig lasts is up to the
+  // dwarves: it stays open (DIG_OPEN) until they have dug the last tile, and then everything after it is laid out.
+  const stage = (key) => STAGES.find((s) => s[0] === key),
+    DIG_OPEN = 600;
+  stage('embark')[1] = clamp(Math.abs(world.GATE_X - life.FROM) / life.WALK + 0.4, 2, 10);
+  lay();
+  let digLaid = false;
   const sim = life.sim;
   /** Moves the hold's life on, a twentieth of a second at a time, until it has reached frame f. */
   function advance(f) {
     while (sim.f < f) {
       sim.f++;
       life.step(sim.f / FPS, 1 / FPS);
+      if (!digLaid && sim.digEnd !== undefined) {
+        stage('dig')[1] = sim.digEnd - T.dig[0] + 0.6;
+        lay();
+        digLaid = true;
+      }
     }
   }
   /**
-   * The picture at frame f (only rows y0 to y1 of it painted, if given). Going back in time wipes life and runs it
-   * again from the first frame.
+   * The picture at frame f (only rows y0 to y1 of it painted, if given). Going back in time wipes life (and the dig's
+   * length with it) and runs it again from the first frame.
    */
   function frame(f, y0, y1) {
     if (f < sim.f) {
       for (const key of Object.keys(sim)) delete sim[key];
       sim.f = -1;
+      stage('dig')[1] = DIG_OPEN;
+      lay();
+      digLaid = false;
     }
     advance(f);
     return draw.frame(f / FPS, y0, y1);
+  }
+  /**
+   * Runs the hold's life on until its dwarves have dug it (without painting anything), so the moment life begins is
+   * known: for a page that starts with the hold already built. Returns that moment's frame.
+   */
+  function settle() {
+    const cap = Math.round((T.dig[0] + life.DIG_S * 3 + 40) * FPS);
+    while (!digLaid && sim.f < cap) advance(sim.f + 1);
+    return Math.round(T.life[0] * FPS);
   }
   /**
    * A short account of the hold, as lines of text: its levels and rooms, its dwarves and their jobs, the techniques
@@ -202,10 +218,20 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
     W,
     H,
     FPS,
-    DUR,
+    get DUR() {
+      return DUR;
+    },
     T,
-    frames: Math.round(DUR * FPS), // the build-up; life goes on past it for ever
-    opening: T.life[0] + 0.5, // where the page starts: the hold built, lit and busy
+    // the build-up, in frames; life goes on past it for ever (until the dig is done this is only a guess)
+    get frames() {
+      return Math.round(DUR * FPS);
+    },
+    // where the page starts: the hold built, lit and busy (working this out runs the dig, once)
+    get opening() {
+      settle();
+      return T.life[0] + 0.5;
+    },
+    settle,
     dayOf,
     clockAt,
     DAYLEN,

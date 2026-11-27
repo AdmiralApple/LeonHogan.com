@@ -105,7 +105,7 @@ export function mountHoldBackground(o = {}) {
   // to a hold pixel; rate is how far the hold moves for each pixel the page scrolls (1 when it is as deep as the page).
   let post = () => {},
     lastView = null;
-  const MARGIN = 24; // rows painted beyond the window's edges, so a quick scroll never shows stale rows
+  const MARGIN = 48; // rows painted beyond the window's edges every frame, so a scroll lands on live rows
   function place() {
     if (!scroll) return;
     const k = (canvas.clientWidth || root.clientWidth || innerWidth) / W, // its shown width, less any scrollbar
@@ -158,8 +158,11 @@ export function mountHoldBackground(o = {}) {
         img.data.set(new Uint8ClampedArray(px.buffer, px.byteOffset + y0 * W * 4, (y1 - y0) * W * 4), y0 * W * 4);
         ctx.putImageData(img, 0, 0, 0, y0, W, y1 - y0);
       };
-      f = intro ? 0 : Math.round(scene.T.life[0] * scene.FPS);
-      draw();
+      f = intro ? 0 : scene.settle();
+      const all = view;
+      view = [0, scene.H];
+      draw(); // the whole of it once, so no row is ever blank
+      view = all;
       const loop = (now) => {
         if (playing) {
           acc += Math.min(250, now - (last || now));

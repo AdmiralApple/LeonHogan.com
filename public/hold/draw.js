@@ -20,7 +20,7 @@ export function makeDrawing(k, look, world, pics, life) {
   const { at, GN, SURF, SURFI, EX, GR, EY, GATE_X, hillX, MAT, BMI, ORE, CAVE, CAVE_T, WATER, WATER_T, D_WATER,
     FUNGUS, KIND, ROOMOF, ROOMS, DIGD, MAXD, OPEN, FREE, SY, ITEMS, LIGHTS, TORCH, LID, MAGL, D_ROCK, WELL,
     dug } = world;
-  const { sim, DWARVES, RATE } = life;
+  const { sim, itemAt } = life;
   const n = W * H;
   const FR = { w: W, h: H, px: new Uint32Array(n) }, // the frame in palette numbers
     IDX = FR.px,
@@ -324,7 +324,7 @@ export function makeDrawing(k, look, world, pics, life) {
     const caveOn = t >= T.caves[0],
       caveU = span('caves', t),
       waterU = clamp(caveU * 1.5 - 0.45),
-      digNow = t < T.dig[0] ? -1 : span('dig', t) * (MAXD + 1.5) - 1,
+      DA = sim.digAt, // when each tile was dug by the dwarves (Infinity: not yet), if the dig has begun
       fungusOn = t >= T.caves[0] + 0.7,
       WT = waterTime(t, Math.floor(t * 15));
     for (let y = Y0, i = Y0 * W; y < Y1; y++) {
@@ -341,8 +341,8 @@ export function makeDrawing(k, look, world, pics, life) {
           continue;
         }
         const tl = trow + (x >> 2);
-        if (KIND[tl] && DIGD[tl] <= digNow) {
-          IDX[i] = DIGD[tl] > digNow - 1.4 && RUB[i] ? RUB[i] : BACK[i];
+        if (DA && DA[tl] <= t) {
+          IDX[i] = t - DA[tl] < 0.6 && RUB[i] ? RUB[i] : BACK[i]; // rubble for a moment, where it was just dug
           continue;
         }
         if (CAVE[i] && caveU > CAVE_T[i]) {
@@ -367,12 +367,11 @@ export function makeDrawing(k, look, world, pics, life) {
       }
       blitSprite(FR, S.gate[0], GATE_X, EY - 1 - drop(t - T.embark[0]));
     }
-    // what stands in the rooms, each dropping into place at its moment (wall hangings sway)
-    const fu = T.furnish[0],
-      fd = T.furnish[1] - T.furnish[0];
+    // what stands in the rooms, each dropping into place soon after its room is dug out (wall hangings sway)
     for (const it of ITEMS) {
-      const at0 = fu + it.appear * fd;
-      if (t < at0 || it.y < Y0 - 4 || it.y > Y1 + 24) continue; // not yet placed, or out of view
+      if (it.y < Y0 - 4 || it.y > Y1 + 24) continue; // out of view
+      const at0 = itemAt(it);
+      if (!(t >= at0)) continue; // not yet placed
       const list = S[it.kind],
         fire = it.kind === 'furnace' || it.kind === 'oven',
         sp = fire ? list[(fr + it.x) % 3] : list[it.v % list.length],
@@ -383,10 +382,12 @@ export function makeDrawing(k, look, world, pics, life) {
       if (it.kind === 'altar') for (const dx of [-3, 0, 3]) blitSprite(FR, S.candle[(fr + dx + 3) % 3], it.x + dx, y - 5);
     }
     // the well: a rope down from the winch to a bucket going up and down
-    if (WELL && t >= T.furnish[1]) {
+    const winch = WELL && ITEMS.find((it) => it.kind === 'winch'),
+      wellAt = winch ? itemAt(winch) : Infinity;
+    if (WELL && t >= wellAt) {
       const x = WELL.x * TS + 2,
         top = SY(WELL.f) - 3,
-        by = Math.round(lerp(WELL.top + 3, WELL.water - 1, 0.5 - 0.5 * Math.cos((t - T.furnish[1]) * 0.9)));
+        by = Math.round(lerp(WELL.top + 3, WELL.water - 1, 0.5 - 0.5 * Math.cos((t - wellAt) * 0.9)));
       lineCells(x, top, x, by - 2, plot(I(C.rope)));
       for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 0; dy++) plot(I(C.woodD))(x + dx, by + dy);
     }
@@ -394,61 +395,27 @@ export function makeDrawing(k, look, world, pics, life) {
     const lu = span('lights', t);
     for (const L of LIGHTS) if (L.kind === 'torch' && lu > L.appear) blitSprite(FR, S.torch[0], L.x, L.y + 3);
     SPARKS.length = 0;
-    paintDwarves(t, fr, digNow);
+    paintDwarves(t);
     if (sim.bats) for (const b of sim.bats) blitSprite(FR, S.bat[(fr + Math.floor(b.seed * 3)) % 2], b.x, b.y, b.dir < 0);
   }
 
   /**
-   * The dwarves: arriving over the grass in a file (each in its place behind the leader, formationSlot) and going in
-   * at the gate; while the hold is dug, a few at the newest tiles swinging picks; after that, every dwarf where life
-   * has walked it, a tool in hand while it works.
+   * The dwarves, every one where life has walked it: over the grass to the gate, at the dig with a pick going up and
+   * down (and sparks off the rock), and once the hold is dug, a tool in hand while it works.
    */
-  function paintDwarves(t, fr, digNow) {
-    const N = DWARVES.length,
-      FILE = Math.min(N, 14); // how many walk in over the grass (in a big hold, the rest are already below)
-    if (t >= T.embark[0] && t < T.dig[0] + 0.4) {
-      const from = hillX > W / 2 ? -14 : W + 14,
-        dir = from < GATE_X ? 1 : -1,
-        u = clamp((t - T.embark[0]) / (T.dig[0] + 0.4 - T.embark[0])),
-        lx = lerp(from, GATE_X + dir * (FILE * 7 + 10), u);
-      for (let j = 0; j < FILE; j++) {
-        const x = j === 0 ? lx : lx + (formationSlot('school', lx, 0, dir > 0 ? 0 : Math.PI, j - 1).x - lx) * 3.6;
-        if ((dir > 0 ? x > GATE_X : x < GATE_X) || x < -8 || x > W + 8) continue;
-        const xi = Math.round(x);
-        blitSprite(FR, dwarf(DWARVES[j], x * RATE * dir, true), xi, SURFI[clamp(xi, 0, W - 1)] - 1, dir < 0);
-      }
-    }
-    if (t >= T.dig[0] && t < T.dig[1]) {
-      const cand = [];
-      for (let tl = 0; tl < GN; tl++) if (FREE[tl] && DIGD[tl] <= digNow && DIGD[tl] > digNow - 3) cand.push(tl);
-      cand.sort((a, b) => DIGD[b] - DIGD[a]);
-      const chosen = [];
-      for (const tl of cand) {
-        const x = tl % GW,
-          y = (tl / GW) | 0;
-        if (chosen.some(([cx, cy]) => Math.abs(cx - x) + Math.abs(cy - y) < 7)) continue;
-        chosen.push([x, y]);
-        if (chosen.length >= Math.min(Math.max(5, Math.round(N / 2)), N)) break; // a big hold has many dig faces
-      }
-      chosen.forEach(([x, y], j) => {
-        const right = KIND[y * GW + x + 1] && DIGD[y * GW + x + 1] > digNow,
-          left = KIND[y * GW + x - 1] && DIGD[y * GW + x - 1] > digNow,
-          dir = right ? 1 : left ? -1 : j & 1 ? 1 : -1,
-          px = x * TS + 2,
-          py = SY(y),
-          down = Math.floor(t * 6 + j * 0.7) % 2 === 1;
-        blitSprite(FR, dwarf(DWARVES[j], 0, false), px, py, dir < 0);
-        const head = tool(px, py, dir, down, 'pick');
-        if (down) SPARKS.push([head[0], head[1], j]);
-      });
-    }
+  function paintDwarves(t) {
     if (sim.dw)
       for (const w of sim.dw) {
         if (w.hidden || w.sleeping) continue;
         const x = Math.round(w.x),
           y = Math.round(w.y);
+        if (y < Y0 - 16 || y > Y1 + 16) continue; // out of view
         blitSprite(FR, dwarf(w.d, w.phase, w.moving), x, y, w.dir < 0);
-        if (w.working && (w.d.job === 'mine' || w.d.job === 'forge' || w.d.job === 'workshop')) {
+        if (w.digging) {
+          const down = Math.floor(t * 6 + w.d.id * 0.37) % 2 === 1,
+            head = tool(x, y, w.dir, down, 'pick');
+          if (down) SPARKS.push([head[0], head[1], w.d.id]);
+        } else if (w.working && (w.d.job === 'mine' || w.d.job === 'forge' || w.d.job === 'workshop')) {
           const down = Math.floor(t * 5 + w.d.id * 0.37) % 2 === 1,
             head = tool(x, y, w.dir, down, w.d.job === 'mine' ? 'pick' : 'hammer');
           if (down && w.d.job !== 'workshop') SPARKS.push([head[0], head[1], w.d.id]);
@@ -611,14 +578,20 @@ export function makeDrawing(k, look, world, pics, life) {
     light(t, hl);
     shadows();
     glows(t, fr, hl);
-    // while the rock is revealed, top to bottom, what is not yet revealed is still the seed's noise
+    // The rock condenses out of the seed's noise: each pixel turns to rock when the stage reaches its own moment, the
+    // bright parts of the noise first (so the clouds of light grey harden first and the dark gaps fill in after) and a
+    // little sooner near the top; the turn is dithered (ditheredBorder), so each cloud's edge goes over grain by grain.
     if (t < T.strata[1]) {
-      const line = span('strata', t) * (H + 24) - 12,
+      const u = span('strata', t) * 1.3 - 0.15,
         G = grn(Y0, Y1),
         a = oct(3, Y0, Y1);
-      for (let y = Y0, i = Y0 * W; y < Y1 && y < line + 12; y++)
-        for (let x = 0; x < W; x++, i++) if (!ditheredBorder(clamp((line - y) / 10), x, y, G[i])) OUT[i] = greyOf(a[i], x, y);
-      for (let i = Math.max(Y0, Math.ceil(line + 12)) * W; i < Y1 * W; i++) OUT[i] = greyOf(a[i], i % W, (i / W) | 0);
+      for (let y = Y0, i = Y0 * W; y < Y1; y++) {
+        const deep = (y / H) * 0.3;
+        for (let x = 0; x < W; x++, i++) {
+          const when = 0.7 * (1 - clamp((a[i] - 0.22) / 0.56)) + deep;
+          if (!ditheredBorder(clamp((u - when) / 0.14), x, y, G[i])) OUT[i] = greyOf(a[i], x, y);
+        }
+      }
     }
     return finish(t);
   }
