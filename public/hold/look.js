@@ -114,7 +114,10 @@ export function makeLook(k) {
   };
   // nine greys, dark to light, for the seed's noise (packed colours, drawn straight to the frame)
   const GREYS = ['#16182a', '#2a2b3c', '#40404e', '#575562', '#706c76', '#8b8690', '#a7a1a8', '#c7c1c1', '#ebe5d6'].map(hex);
-  return { hex, tone, idx, I, IT, PAL, SH, LV, C, WP, GREYS };
+  // and nine dim ones, for a page with a dark background: deep violet-greys that rise only a little from near black,
+  // so the noise glows softly instead of flashing white
+  const GREYS_DIM = ['#0f0d13', '#141119', '#19161f', '#1f1b26', '#26212e', '#2d2737', '#352e40', '#3e364a', '#483f55'].map(hex);
+  return { hex, tone, idx, I, IT, PAL, SH, LV, C, WP, GREYS, GREYS_DIM };
 }
 
 /**

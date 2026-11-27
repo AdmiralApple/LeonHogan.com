@@ -65,7 +65,8 @@ function tick() {
 
 const setView = (y0, y1) => {
   view = [Math.max(0, Math.floor(y0)), Math.min(scene.H, Math.ceil(y1))];
-  if (view[1] <= view[0]) view = [0, scene.H];
+  // nonsense in (a page not laid out yet can send it): fall back to all of it
+  if (!Number.isFinite(view[0]) || !Number.isFinite(view[1]) || view[1] <= view[0]) view = [0, scene.H];
 };
 
 onmessage = (e) => {
@@ -81,6 +82,7 @@ onmessage = (e) => {
       maxDwarves: m.maxDwarves,
       clock: m.clock,
       darkness: m.darkness,
+      dim: m.dim,
     });
     m.canvas.width = scene.W;
     m.canvas.height = scene.H;
@@ -111,6 +113,7 @@ onmessage = (e) => {
     tick();
   } else if (m.type === 'darkness') {
     scene.setDarkness(m.value);
+    scene.setDim(m.dim);
     if (!playing) draw();
   }
 };

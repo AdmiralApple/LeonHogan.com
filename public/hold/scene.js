@@ -36,7 +36,8 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
   // opts, all optional: W and H, the picture's size in its own pixels (any size: the hold grows to fill it); captions
   // and mark (false to leave out the captions and the library's name); maxDwarves; intro (false: the hold starts
   // already built and lived in); clock (days to wind the clock on, so a background can carry its hour from page to
-  // page); darkness (0: the cut-away drawn in full light, 1: dark underground but for the torches).
+  // page); darkness (0: the cut-away drawn in full light, 1: dark underground but for the torches); dim (for a dark
+  // page: the seed's noise in dim greys, and the build-up drawn in a softer light).
   // Every technique the film calls is counted on its way through: A is a copy of the almanac in which each function
   // first writes its own name into `used`, then does its work. Classes are counted when one is made.
   const used = new Set();
@@ -139,7 +140,7 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
   // prettier-ignore
   const k = { A, used, W, H, TS, GW, GH, FPS, PHRASE, SEED, STAGES, T, DUR, span, CAPTIONS, timeOfDay, bedtime,
     captionAt, endCard, mark: opts.mark !== false, intro: opts.intro !== false, maxDwarves: opts.maxDwarves || 30,
-    darkness: opts.darkness === undefined ? 1 : opts.darkness };
+    darkness: opts.darkness === undefined ? 1 : opts.darkness, dimNoise: !!opts.dim };
   const look = makeLook(k),
     world = buildWorld(k, look);
   const pics = makeSprites(k, look),
@@ -236,6 +237,7 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
     clockAt,
     DAYLEN,
     setDarkness: (v) => (k.darkness = v), // how dark it is underground, 0..1, changeable at any time
+    setDim: (on) => (k.dimNoise = !!on), // a dark page: dim noise, and a softer build-up (changeable at any time)
     phrase: PHRASE,
     seed: SEED,
     used,

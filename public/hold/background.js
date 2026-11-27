@@ -72,6 +72,9 @@ export function mountHoldBackground(o = {}) {
       imageRendering: 'pixelated',
       zIndex: '-2',
       pointerEvents: 'none',
+      // hidden until its first frame is drawn, then faded in, so the page never jumps from bare to busy
+      opacity: '0',
+      transition: still ? 'none' : 'opacity 1.8s ease',
     },
     scroll
       ? { width: '100%', height: 'auto', willChange: 'transform' }
@@ -87,13 +90,13 @@ export function mountHoldBackground(o = {}) {
   const DAYLEN = 90; // seconds a day, as scene.js has it
   const clockNow = saved ? saved.clock + (Date.now() - saved.at) / 1000 / DAYLEN : null;
   const intro = o.intro === 'once' ? !saved : !!o.intro;
-  const darkFor =
-    o.darkness ||
-    (() => {
-      const t = root.dataset.theme,
-        dark = t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-      return dark ? 1 : 0.4;
-    });
+  // whether the page is dark: then the hold is dark underground, its noise dim and its build-up softly lit
+  const isDark = () => {
+    const t = root.dataset.theme;
+    return t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+  const darkFor = o.darkness || (() => (isDark() ? 1 : 0.4));
+  const show = () => requestAnimationFrame(() => (canvas.style.opacity = '1'));
   const remember = (clock) => {
     try {
       sessionStorage.setItem(KEY, JSON.stringify({ clock, at: Date.now() }));
@@ -109,8 +112,9 @@ export function mountHoldBackground(o = {}) {
   function place() {
     if (!scroll) return;
     const k = (canvas.clientWidth || root.clientWidth || innerWidth) / W, // its shown width, less any scrollbar
-      tall = H * k,
-      room = Math.max(0, docH() - innerHeight),
+      tall = H * k;
+    if (!(k > 0)) return; // not laid out yet (a hidden tab or frame): wait for the next scroll or resize
+    const room = Math.max(0, docH() - innerHeight),
       rate = room > 0 ? Math.max(0, tall - innerHeight) / room : 0,
       off = Math.min(Math.max(0, tall - innerHeight), scrollY * rate);
     canvas.style.transform = `translate3d(0, ${-off}px, 0)`;
@@ -133,6 +137,7 @@ export function mountHoldBackground(o = {}) {
     maxDwarves: o.maxDwarves || Math.max(8, Math.min(120, Math.round((W * H) / 6000))),
     clock: clockNow === null ? 0 : clockNow - 0.12, // scene.js counts its first day from 0.12
     darkness: darkFor(),
+    dim: isDark(),
   };
   place(); // works out the first view before anything is drawn
   opts.view = scroll ? lastView : null;
@@ -141,7 +146,10 @@ export function mountHoldBackground(o = {}) {
   if (canvas.transferControlToOffscreen && typeof Worker !== 'undefined') {
     const worker = new Worker(new URL('./hold-worker.js', import.meta.url), { type: 'module' });
     const off = canvas.transferControlToOffscreen();
-    worker.onmessage = (e) => e.data.type === 'clock' && remember(e.data.clock);
+    worker.onmessage = (e) => {
+      if (e.data.type === 'clock') remember(e.data.clock);
+      else if (e.data.type === 'ready') show();
+    };
     worker.postMessage({ type: 'start', canvas: off, ...opts }, [off]);
     post = (m) => worker.postMessage(m);
     stop = () => worker.terminate();
@@ -163,6 +171,7 @@ export function mountHoldBackground(o = {}) {
       view = [0, scene.H];
       draw(); // the whole of it once, so no row is ever blank
       view = all;
+      show();
       const loop = (now) => {
         if (playing) {
           acc += Math.min(250, now - (last || now));
@@ -180,7 +189,7 @@ export function mountHoldBackground(o = {}) {
       post = (m) => {
         if (m.type === 'pause') playing = false;
         else if (m.type === 'resume') playing = !still;
-        else if (m.type === 'darkness') scene.setDarkness(m.value), draw();
+        else if (m.type === 'darkness') scene.setDarkness(m.value), scene.setDim(m.dim), draw();
         else if (m.type === 'view') (view = [m.y0, m.y1]), playing || draw();
       };
     });
@@ -204,7 +213,7 @@ export function mountHoldBackground(o = {}) {
   }
   // pause while the tab is hidden; follow the page's theme
   document.addEventListener('visibilitychange', () => !still && post({ type: document.hidden ? 'pause' : 'resume' }));
-  const update = () => post({ type: 'darkness', value: darkFor() });
+  const update = () => post({ type: 'darkness', value: darkFor(), dim: isDark() });
   new MutationObserver(update).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', update);
   return { canvas, seed, update, stop };

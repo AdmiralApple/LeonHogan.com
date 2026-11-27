@@ -14,7 +14,7 @@ export function makeDrawing(k, look, world, pics, life) {
     ditheredBorder, fillEllipse, formationSlot, fractalNoise, hourLight, latticeHash, latticeRandom, lerp, lineCells,
     mixPacked, scatterAlong, shadeEllipse, smoothstep, spriteFromRows, twinkle, wallShade, waterPixel,
     waterTime } = A;
-  const { hex, tone, idx, I, SH, LV, C, WP, GREYS } = look;
+  const { hex, tone, idx, I, SH, LV, C, WP, GREYS, GREYS_DIM } = look;
   const { S, tree, dwarf, INK } = pics;
   // prettier-ignore
   const { at, GN, SURF, SURFI, EX, GR, EY, GATE_X, hillX, MAT, BMI, ORE, CAVE, CAVE_T, WATER, WATER_T, D_WATER,
@@ -215,8 +215,10 @@ export function makeDrawing(k, look, world, pics, life) {
       }
     return a;
   }
-  // a height (0..1) as one of the nine greys, the steps between them dithered (bayerThreshold)
-  const greyOf = (v, x, y) => GREYS[clamp(Math.floor(clamp((v - 0.22) / 0.56) * 8 + bayerThreshold(x, y)), 0, 8)];
+  // a height (0..1) as one of the nine greys, the steps between them dithered (bayerThreshold); the dim greys when the
+  // page asks for them (a dark theme)
+  const greyOf = (v, x, y) =>
+    (k.dimNoise ? GREYS_DIM : GREYS)[clamp(Math.floor(clamp((v - 0.22) / 0.56) * 8 + bayerThreshold(x, y)), 0, 8)];
 
   // ---------------------------------------------------------------------------------------------------- the light
   // AMB: how much light each pixel has underground once the torches are lit, before the torches' own: open space a
@@ -435,14 +437,17 @@ export function makeDrawing(k, look, world, pics, life) {
       magK = t >= T.caves[0] ? smoothstep(T.caves[0], T.caves[1], t) * (0.9 + 0.1 * Math.sin(t * 1.3)) * (0.35 + 0.65 * dark) : 0;
     for (const L of LIGHTS)
       LF[L.id] = (L.kind === 'torch' ? (lu > L.appear ? 1 : 0) : lu > 0 ? 1 : 0) * dark * (0.88 + 0.08 * Math.sin(t * 13 + L.id * 2.3) + 0.04 * Math.sin(t * 29 + L.id));
-    const sky = SKY.px;
+    const sky = SKY.px,
+      // underground before the torches are lit: the cut-away in full light, or (on a dark page) a softer light, so the
+      // build-up never flashes bright against the page
+      pre = k.dimNoise ? 0.7 : 1;
     for (let i = Y0 * W, end = Y1 * W; i < end; i++) {
       const v = IDX[i];
       if (!v) {
         OUT[i] = i < SKY.px.length ? sky[i] : 0;
         continue;
       }
-      let b = day + (1 + (AMB[i] - 1) * dark - day) * DEPTH[i];
+      let b = day + (pre + (AMB[i] - pre) * dark - day) * DEPTH[i];
       const l = LID[i];
       if (l >= 0) b += TORCH[i] * LF[l];
       b += MAGL[i] * magK;
