@@ -3,72 +3,63 @@ import { SITE, SOCIALS, NAV } from '../site';
 const year = new Date().getFullYear();
 ---
 
+<!-- The footer rests on the magma at the very bottom of the dwarf hold: a stretch of open depths above it, then one
+     slim frosted line of links, so nothing hides the bottom of the world. -->
 <footer class="site-footer">
-  <div class="wrap cols">
-    <div>
-      <p class="sig">{SITE.name}</p>
-      <p class="muted small">Games, reviews and a blog.</p>
-    </div>
-    <ul class="links">
+  <div class="floor">
+    <span class="sig">© {year} {SITE.name}</span>
+    <ul>
       {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
       <li><a href="/rss.xml">RSS</a></li>
-    </ul>
-    <ul class="links">
       {SOCIALS.map((s) => <li><a href={s.href} rel="me noopener" target="_blank">{s.label} ↗</a></li>)}
     </ul>
   </div>
-  <div class="wrap fine">© {year} {SITE.name}</div>
 </footer>
 
 <style>
   .site-footer {
-    margin-top: 48px;
-    border-top: 1px solid var(--line);
-    background: color-mix(in srgb, var(--bg-sunken) 82%, transparent); /* the hold shows faintly through */
-    backdrop-filter: blur(3px);
-    padding-block: 40px 28px;
-    font-size: 0.95rem;
+    margin-top: 62vh;
+    padding: 0 16px 24px;
+    display: flex;
+    justify-content: center;
   }
-  .cols {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 28px;
+  .floor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 6px 18px;
+    max-width: 100%;
+    padding: 10px 20px;
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    font-size: 0.86rem;
   }
   .sig {
-    font: 800 1.3rem/1 var(--font-display);
-    margin-bottom: 0.5rem;
+    font: 700 0.86rem/1.4 var(--font-display);
   }
-  .small {
-    font-size: 0.92rem;
-    max-width: 36ch;
-  }
-  .links {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 14px;
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    gap: 0.4rem;
-    align-content: start;
   }
-  .links a {
+  a {
     text-decoration: none;
     color: var(--ink-soft);
   }
-  .links a:hover {
+  a:hover {
     color: var(--accent);
   }
-  .fine {
-    margin-top: 28px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--ink-faint);
-  }
   @media (max-width: 640px) {
-    .cols {
-      grid-template-columns: 1fr 1fr;
-    }
-    .cols > div:first-child {
-      grid-column: 1 / -1;
+    .site-footer {
+      margin-top: 40vh;
     }
   }
 </style>

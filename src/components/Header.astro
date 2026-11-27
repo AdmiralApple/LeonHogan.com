@@ -4,12 +4,12 @@ const path = Astro.url.pathname;
 ---
 
 <header class="site-header">
-  <div class="wrap bar">
+  <div class="bar">
     <a class="brand" href="/" aria-label={`${SITE.name} — home`}>
       <span class="mark" aria-hidden="true">LH</span>
       <span class="name">{SITE.name}</span>
     </a>
-    <nav aria-label="Main">
+    <nav class="pill-box" aria-label="Main">
       <ul>
         {
           NAV.map((item) => (
@@ -50,21 +50,37 @@ const path = Astro.url.pathname;
 </script>
 
 <style>
+  /* No bar across the page: the name and the menu float over the dwarf hold as small frosted pills, so the sky and
+     the surface stay in view. */
   .site-header {
     position: sticky;
-    top: 0;
+    top: 12px;
     z-index: 50;
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--line);
+    pointer-events: none; /* only the pills themselves catch the mouse */
   }
   .bar {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    min-height: 64px;
+    gap: 0.6rem;
+    min-height: 52px;
     flex-wrap: wrap;
+    padding-inline: 16px;
+  }
+  .bar > * {
+    pointer-events: auto;
+  }
+  .brand,
+  .pill-box,
+  .theme-toggle {
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .pill-box {
+    border-radius: 999px;
+    padding: 4px;
   }
   .brand {
     display: flex;
@@ -72,6 +88,8 @@ const path = Astro.url.pathname;
     gap: 0.6rem;
     text-decoration: none;
     margin-right: auto;
+    padding: 6px 14px 6px 7px;
+    border-radius: 999px;
   }
   .brand:hover {
     color: inherit;
@@ -79,8 +97,8 @@ const path = Astro.url.pathname;
   .mark {
     display: grid;
     place-items: center;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 10px;
     background: var(--accent);
     color: var(--accent-ink);
@@ -124,11 +142,9 @@ const path = Astro.url.pathname;
   .theme-toggle {
     display: grid;
     place-items: center;
-    width: 38px;
-    height: 38px;
+    width: 42px;
+    height: 42px;
     border-radius: 999px;
-    border: 1px solid var(--line);
-    background: var(--bg-raised);
     color: var(--ink-soft);
     cursor: pointer;
   }
@@ -154,7 +170,6 @@ const path = Astro.url.pathname;
   }
   @media (max-width: 620px) {
     .bar {
-      padding-block: 10px;
       row-gap: 6px;
     }
     nav {

@@ -90,7 +90,8 @@ export function buildWorld(k, look) {
   const B1 = (x) => SURF[x] + 7 + noiseLine(x / 24, SEED + 1) * 6,
     B2 = (x) => H * 0.42 + (noiseLine(x / 48, SEED + 2) - 0.5) * 22,
     B3 = (x) => H * 0.66 + (noiseLine(x / 40, SEED + 3) - 0.5) * 18,
-    BM = (x) => H - 10 + (noiseLine(x / 18, SEED + 4) - 0.5) * 6;
+    MAGMA_D = Math.max(10, Math.round(H * 0.035)), // how deep the magma is: a thicker sea under a deeper world
+    BM = (x) => H - MAGMA_D + (noiseLine(x / 18, SEED + 4) - 0.5) * 6;
   const MAT = new Uint8Array(n),
     BMI = new Int16Array(W);
   for (let x = 0; x < W; x++) {

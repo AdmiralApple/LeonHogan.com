@@ -236,8 +236,10 @@ export function makeDrawing(k, look, world, pics, life) {
   function magmaAt(x, y, t) {
     const d = y - BMI[x];
     if (d === 0) return MAGMA[latticeRandom(x, (t * 4) | 0, SEED) < 0.3 ? 5 : 4];
-    const v = fractalNoise(x / 9 + t * 0.5, y / 3.5 - t * 0.25, SEED + 40, 2);
-    return MAGMA[clamp(Math.floor((v * 1.5 - 0.15 - d * 0.04) * 5.5), 0, 5)];
+    // two drifts of noise, one broad and slow, one fine and quicker, so a deep sea of it still churns; it darkens a
+    // little with depth, but only so far
+    const v = fractalNoise(x / 9 + t * 0.5, y / 3.5 - t * 0.25, SEED + 40, 2) * 0.65 + fractalNoise(x / 26 - t * 0.2, y / 9 + t * 0.15, SEED + 41, 2) * 0.35;
+    return MAGMA[clamp(Math.floor((v * 1.6 - 0.2 - Math.min(d, 12) * 0.03) * 5.5), 0, 5)];
   }
   // A dropped thing's height above where it lands, frame by frame after it appears: a spring pulled down to the
   // floor that overshoots and settles (dampedSpring).
