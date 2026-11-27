@@ -1,25 +1,26 @@
 /* ---------- Design tokens ---------- */
+/* Palette: Glacier (soft slate, ice teal, copper). */
 :root {
-  --bg: #f5f0e6;
-  --bg-raised: #fffaf1;
-  --bg-sunken: #ebe4d6;
-  --ink: #17141b;
-  --ink-soft: #4a4450;
-  --ink-faint: #7d7684;
-  --line: #ddd4c4;
-  --accent: #e2480f;
+  --bg: #eaeff0;
+  --bg-raised: #f6f9f9;
+  --bg-sunken: #dce4e6;
+  --ink: #172024;
+  --ink-soft: #43545a;
+  --ink-faint: #70828a;
+  --line: #cbd7da;
+  --accent: #0d7f8f;
   --accent-ink: #fff;
-  --accent-soft: #ffe2d4;
-  --teal: #0f8c82;
+  --accent-soft: #d0edf0;
+  --teal: #b0581e;
 
   --great: #12804b;
   --good: #6c8a12;
   --meh: #b9770a;
   --bad: #c2321f;
 
-  --font-display: 'Bricolage Grotesque', 'IBM Plex Sans', system-ui, sans-serif;
-  --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --font-display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
 
   --radius: 14px;
   --radius-sm: 8px;
@@ -29,17 +30,17 @@
 }
 
 :root[data-theme='dark'] {
-  --bg: #121015;
-  --bg-raised: #1b1820;
-  --bg-sunken: #0c0a0e;
-  --ink: #f1ece2;
-  --ink-soft: #bdb5c4;
-  --ink-faint: #857d8d;
-  --line: #2d2833;
-  --accent: #ff6a32;
-  --accent-ink: #160b06;
-  --accent-soft: #3a1c10;
-  --teal: #3cc7ba;
+  --bg: #121a1d;
+  --bg-raised: #1a2428;
+  --bg-sunken: #0c1214;
+  --ink: #e3edef;
+  --ink-soft: #a9bcc1;
+  --ink-faint: #738a90;
+  --line: #26343a;
+  --accent: #5fd3e0;
+  --accent-ink: #04191c;
+  --accent-soft: #143a40;
+  --teal: #f0a060;
   --great: #3ccf86;
   --good: #a9cf3c;
   --meh: #f0b23c;
@@ -50,17 +51,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #121015;
-    --bg-raised: #1b1820;
-    --bg-sunken: #0c0a0e;
-    --ink: #f1ece2;
-    --ink-soft: #bdb5c4;
-    --ink-faint: #857d8d;
-    --line: #2d2833;
-    --accent: #ff6a32;
-    --accent-ink: #160b06;
-    --accent-soft: #3a1c10;
-    --teal: #3cc7ba;
+    --bg: #121a1d;
+    --bg-raised: #1a2428;
+    --bg-sunken: #0c1214;
+    --ink: #e3edef;
+    --ink-soft: #a9bcc1;
+    --ink-faint: #738a90;
+    --line: #26343a;
+    --accent: #5fd3e0;
+    --accent-ink: #04191c;
+    --accent-soft: #143a40;
+    --teal: #f0a060;
     --great: #3ccf86;
     --good: #a9cf3c;
     --meh: #f0b23c;

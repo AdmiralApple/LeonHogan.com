@@ -1,0 +1,257 @@
+---
+// Dev-only design lab: swaps the colour and font tokens from global.css so palettes and type pairings can be compared
+// on the real site. Base.astro renders it only under `astro dev`, so nothing here reaches the built site. Delete this
+// file (and its line in Base.astro) once the look is settled.
+type Tokens = Record<string, string>;
+interface Palette { id: string; name: string; note: string; light: Tokens; dark: Tokens; base?: boolean }
+interface FontSet { id: string; name: string; note: string; display: string; body: string; mono: string; base?: boolean }
+
+const keys = ['bg', 'bg-raised', 'bg-sunken', 'ink', 'ink-soft', 'ink-faint', 'line', 'accent', 'accent-ink', 'accent-soft', 'teal'];
+const t = (...v: string[]): Tokens => Object.fromEntries(keys.map((k, i) => [k, v[i]]));
+
+// The `base` palette is what global.css already holds; it is listed for its swatch and emits no override.
+const palettes: Palette[] = [
+  {
+    id: 'glacier', name: 'Glacier', note: 'current: soft slate, ice teal, copper', base: true,
+    light: t('#eaeff0', '#f6f9f9', '#dce4e6', '#172024', '#43545a', '#70828a', '#cbd7da', '#0d7f8f', '#fff', '#d0edf0', '#b0581e'),
+    dark: t('#121a1d', '#1a2428', '#0c1214', '#e3edef', '#a9bcc1', '#738a90', '#26343a', '#5fd3e0', '#04191c', '#143a40', '#f0a060'),
+  },
+  {
+    id: 'forge', name: 'Forge', note: 'the original orange on charcoal',
+    light: t('#f5f0e6', '#fffaf1', '#ebe4d6', '#17141b', '#4a4450', '#7d7684', '#ddd4c4', '#e2480f', '#fff', '#ffe2d4', '#0f8c82'),
+    dark: t('#121015', '#1b1820', '#0c0a0e', '#f1ece2', '#bdb5c4', '#857d8d', '#2d2833', '#ff6a32', '#160b06', '#3a1c10', '#3cc7ba'),
+  },
+  {
+    id: 'brass', name: 'Moss & Brass', note: 'mossy green-black, parchment, brass',
+    light: t('#eeeee2', '#f8f8ee', '#e2e3d3', '#1a1f17', '#454d40', '#737b6c', '#d2d4c2', '#94650f', '#fff', '#f1e3c2', '#2f7d5b'),
+    dark: t('#0f1410', '#171e18', '#0a0d0a', '#ece6d4', '#b9b6a3', '#7f8476', '#263026', '#d9a944', '#161004', '#33280f', '#6fc59a'),
+  },
+  {
+    id: 'lapis', name: 'Lapis', note: 'deep navy, cobalt, amber highlights',
+    light: t('#eef1f6', '#f9fbfe', '#e1e6ef', '#121826', '#3f4a60', '#6c7890', '#d2d9e6', '#2856d8', '#fff', '#dbe5ff', '#b86f08'),
+    dark: t('#0d1220', '#151c2e', '#080c16', '#e6ecf7', '#aab5cc', '#75809a', '#232c42', '#6b9bff', '#07102a', '#18264a', '#f2b347'),
+  },
+  {
+    id: 'amethyst', name: 'Amethyst', note: 'plum, lilac, mint',
+    light: t('#f3eff7', '#fcfaff', '#e8e1f0', '#1b1424', '#4c405a', '#7b6f8a', '#ddd3e8', '#7a3fd1', '#fff', '#ece0ff', '#0f8c82'),
+    dark: t('#130f1c', '#1c1628', '#0c0912', '#efe8f7', '#bdb1cc', '#85799a', '#2d2540', '#b691ff', '#160a2c', '#2c1f4a', '#4fd6c0'),
+  },
+  {
+    id: 'phosphor', name: 'Phosphor', note: 'CRT green on black, amber',
+    light: t('#eef2ea', '#f8fbf5', '#e1e8db', '#121a12', '#3e4c3e', '#6b7a6a', '#d0dacb', '#1d8a3a', '#fff', '#d5f0dc', '#b5620f'),
+    dark: t('#0a0f0b', '#111812', '#060907', '#d8f5dc', '#9cc4a2', '#688a6e', '#1d2a1f', '#5cff8a', '#04140a', '#0f3019', '#ffb347'),
+  },
+  {
+    id: 'rose', name: 'Ember Rose', note: 'warm charcoal, coral pink, teal',
+    light: t('#f7efed', '#fffaf9', '#ede2df', '#1f1517', '#55434a', '#86727a', '#e5d5d2', '#d23a64', '#fff', '#ffdbe5', '#0f8c82'),
+    dark: t('#161012', '#20181b', '#0e0a0b', '#f6eaec', '#c8b2b8', '#8f7a80', '#33262a', '#ff6f91', '#2a0711', '#3d1622', '#5fd0c0'),
+  },
+];
+
+// Font pairings: display (headings), body, mono (labels, dates, stats).
+const sans = "system-ui, -apple-system, 'Segoe UI', sans-serif";
+const monoFallback = "ui-monospace, 'Cascadia Code', Consolas, monospace";
+const fonts: FontSet[] = [
+  {
+    id: 'space', name: 'Space', note: 'current: Space Grotesk / Inter / Space Mono', base: true,
+    display: `'Space Grotesk', ${sans}`, body: `'Inter', ${sans}`, mono: `'Space Mono', ${monoFallback}`,
+  },
+  {
+    id: 'bricolage', name: 'Bricolage', note: 'the original: Bricolage Grotesque / IBM Plex Sans / JetBrains Mono',
+    display: `'Bricolage Grotesque', 'IBM Plex Sans', ${sans}`, body: `'IBM Plex Sans', ${sans}`, mono: `'JetBrains Mono', ${monoFallback}`,
+  },
+  {
+    id: 'condensed', name: 'Condensed', note: 'Barlow Condensed / Barlow / IBM Plex Mono: tall, industrial',
+    display: `'Barlow Condensed', 'Barlow', ${sans}`, body: `'Barlow', ${sans}`, mono: `'IBM Plex Mono', ${monoFallback}`,
+  },
+  {
+    id: 'sora', name: 'Sora', note: 'Sora / Manrope / Fira Code: soft geometric',
+    display: `'Sora', ${sans}`, body: `'Manrope', ${sans}`, mono: `'Fira Code', ${monoFallback}`,
+  },
+  {
+    id: 'editorial', name: 'Editorial', note: 'Fraunces / Source Sans 3 / IBM Plex Mono: bookish serif headings',
+    display: `'Fraunces', Georgia, serif`, body: `'Source Sans 3', ${sans}`, mono: `'IBM Plex Mono', ${monoFallback}`,
+  },
+  {
+    id: 'rune', name: 'Rune', note: 'Cinzel / Alegreya Sans / Fira Code: carved-stone fantasy',
+    display: `'Cinzel', 'Trajan Pro', Georgia, serif`, body: `'Alegreya Sans', ${sans}`, mono: `'Fira Code', ${monoFallback}`,
+  },
+  {
+    id: 'pixel', name: 'Pixel', note: 'Pixelify Sans / Atkinson Hyperlegible / VT323: retro game',
+    display: `'Pixelify Sans', ${sans}`, body: `'Atkinson Hyperlegible', ${sans}`, mono: `'VT323', ${monoFallback}`,
+  },
+];
+
+// Every family the alternatives need, in one request (dev only, so its weight doesn't matter).
+const fontHref =
+  'https://fonts.googleapis.com/css2?' +
+  [
+    'family=Bricolage+Grotesque:opsz,wght@12..96,600..800',
+    'family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400',
+    'family=JetBrains+Mono:wght@500;700;800',
+    'family=Barlow+Condensed:wght@600;700;800',
+    'family=Barlow:ital,wght@0,400;0,600;1,400',
+    'family=IBM+Plex+Mono:wght@500;700',
+    'family=Sora:wght@600;700;800',
+    'family=Manrope:wght@400;600;700',
+    'family=Fira+Code:wght@500;700',
+    'family=Fraunces:opsz,wght@9..144,600..800',
+    'family=Source+Sans+3:ital,wght@0,400;0,600;1,400',
+    'family=Cinzel:wght@600;700;800',
+    'family=Alegreya+Sans:ital,wght@0,400;0,700;1,400',
+    'family=Pixelify+Sans:wght@500;600;700',
+    'family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400',
+    'family=VT323',
+  ].join('&') +
+  '&display=swap';
+
+const decl = (tk: Tokens) => Object.entries(tk).map(([k, v]) => `--${k}:${v};`).join('');
+// Specificity: the light rule (0,2,0) beats global.css's light :root; the dark rules (0,3,0) beat its dark ones.
+const paletteCss = palettes
+  .filter((p) => !p.base)
+  .map((p) => {
+    const sel = `:root[data-palette='${p.id}']`;
+    return `${sel}{${decl(p.light)}}${sel}[data-theme='dark']{${decl(p.dark)}}` +
+      `@media (prefers-color-scheme: dark){${sel}:not([data-theme='light']){${decl(p.dark)}}}`;
+  })
+  .join('\n');
+const fontCss = fonts
+  .filter((f) => !f.base)
+  .map((f) => `:root[data-font='${f.id}']{--font-display:${f.display};--font-body:${f.body};--font-mono:${f.mono};}`)
+  .join('\n');
+---
+
+<link rel="stylesheet" href={fontHref} />
+<style is:inline set:html={paletteCss + '\n' + fontCss}></style>
+<script is:inline>
+  try {
+    const p = localStorage.getItem('palette-lab');
+    if (p) document.documentElement.dataset.palette = p;
+    const f = localStorage.getItem('font-lab');
+    if (f) document.documentElement.dataset.font = f;
+  } catch {}
+</script>
+
+<div class="design-lab" aria-label="Design lab (dev only)">
+  <div class="dl-group" role="group" aria-label="Palette" data-attr="palette" data-store="palette-lab" data-base={palettes.find((p) => p.base)!.id}>
+    <span class="dl-label">Palette</span>
+    {palettes.map((p) => (
+      <button type="button" data-id={p.id} title={`${p.name} — ${p.note}`}>
+        <span class="dl-dots">
+          <i style={`background:${p.dark.bg}`}></i>
+          <i style={`background:${p.dark.accent}`}></i>
+          <i style={`background:${p.dark.teal}`}></i>
+        </span>
+        <span>{p.name}</span>
+      </button>
+    ))}
+  </div>
+  <div class="dl-group" role="group" aria-label="Fonts" data-attr="font" data-store="font-lab" data-base={fonts.find((f) => f.base)!.id}>
+    <span class="dl-label">Fonts</span>
+    {fonts.map((f) => (
+      <button type="button" data-id={f.id} title={`${f.name} — ${f.note}`}>
+        <span class="dl-sample" style={`font-family:${f.display}`}>Aa</span>
+        <span>{f.name}</span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    document.querySelectorAll('.design-lab .dl-group').forEach((group) => {
+      const { attr, store, base } = group.dataset;
+      const buttons = group.querySelectorAll('button');
+      const mark = () => {
+        const cur = root.dataset[attr] || base;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.id === cur)));
+      };
+      buttons.forEach((b) =>
+        b.addEventListener('click', () => {
+          const id = b.dataset.id;
+          if (id === base) delete root.dataset[attr];
+          else root.dataset[attr] = id;
+          try { localStorage.setItem(store, id === base ? '' : id); } catch {}
+          mark();
+        }),
+      );
+      mark();
+    });
+  })();
+</script>
+
+<style>
+  .design-lab {
+    /* Right edge, vertically centred: clear of the left-aligned headings and of Astro's dev toolbar (bottom centre). */
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #1b1b1f;
+    color: #eee;
+    border: 1px solid #3a3a42;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+    font: 600 12px/1.2 system-ui, sans-serif;
+  }
+  .dl-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .dl-label {
+    font: 700 10px/1 ui-monospace, Consolas, monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 2px;
+  }
+  .design-lab button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 8px;
+    background: transparent;
+    color: inherit;
+    border: 1px solid #3a3a42;
+    border-radius: 8px;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+  .design-lab button:hover {
+    border-color: #777;
+  }
+  .design-lab button[aria-pressed='true'] {
+    background: #f2f2f2;
+    color: #111;
+    border-color: #fff;
+  }
+  .dl-dots {
+    display: flex;
+  }
+  .dl-dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    margin-left: -3px;
+  }
+  .dl-dots i:first-child {
+    margin-left: 0;
+  }
+  .dl-sample {
+    width: 22px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+  }
+</style>
