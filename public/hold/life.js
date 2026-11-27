@@ -72,24 +72,29 @@ export function makeLife(k, look, world) {
   // ---------------------------------------------------------------------------------------------------- the dig
   // The hold is dug by the dwarves themselves. Every tile of the plan starts as rock; a dwarf picks a stretch of the
   // dig's frontier (planned tiles next to dug ones) near it, walks to a tile it can stand on beside it, and digs it out
-  // with a pick, a column of rock at a time. PLANNED: how many tiles the plan has; TILE_S: seconds to dig one, set so a
-  // hold of any size takes from about 15 to 45 seconds with the dwarves it has.
+  // with a pick, a column of rock at a time. PLANNED: how many tiles the plan has; TILE_S: seconds to dig one. At most
+  // CREW of them dig at once, so a small hold takes several minutes and a page-deep one twenty minutes or so.
   let PLANNED = 0;
   for (let t = 0; t < GN; t++) if (KIND[t]) PLANNED++;
-  // Seconds a tile: in a small hold a corridor's column takes about a third of a second, a pick going steadily; a
+  // Seconds a tile: in a small hold a corridor's column takes about two seconds, a pick going steadily; a
   // bigger hold has more to dig through the same few rock faces at a time, so its dwarves dig faster (down to about
-  // half that), keeping the whole dig to a minute or two. DIG_S: about how long it should take, for the safety net.
-  const TILE_S = clamp(0.085 * Math.sqrt(4000 / PLANNED), 0.042, 0.085),
+  // half that). CREW: how many dwarves come in to dig it; the rest of the hold's people arrive once it is dug. DIG_S: about how
+  // long it should take; DIG_CAP: seconds into the dig by which, if they have not finished, the rest is dug at once.
+  const TILE_S = clamp(0.567 * Math.sqrt(4000 / PLANNED), 0.28, 0.567),
+    CREW = 7,
     DIG_S = clamp(PLANNED / 220, 15, 60),
+    DIG_CAP = DIG_S * 120 + 60,
     TOP = [ti(EX, GR), ti(EX + 1, GR)], // the two tiles at the top of the stairs, under the gate
     ROOM_TILES = new Int32Array(ROOMS.length);
   for (let t = 0; t < GN; t++) if (ROOMOF[t] >= 0) ROOM_TILES[ROOMOF[t]]++;
-  // Arrivals: the dwarves walk in over the grass from the edge away from the hill, one after another, the first
-  // reaching the gate as the dig begins and the rest coming in through it while the dig goes on.
+  // Arrivals: the dwarves walk in over the grass from the edge away from the hill, one after another: the first CREW
+  // to dig, the first reaching the gate as the dig begins; the rest once the hold is dug (until then, never).
   const FROM = hillX > W / 2 ? -10 : W + 10,
     WALK = 60, // pixels a second over the grass
-    GAP = clamp(26 / count, 0.25, 0.9); // seconds between one dwarf setting off and the next
-  const arriveAt = (i) => T.embark[0] + 0.2 + i * GAP;
+    GAP = clamp(26 / Math.min(count, CREW), 0.25, 0.9), // seconds between one dwarf setting off and the next
+    LATE_GAP = clamp(40 / count, 0.3, 0.9); // and between the latecomers, once the dig is done
+  const arriveAt = (i) =>
+    i < CREW ? T.embark[0] + 0.2 + i * GAP : sim.digEnd === undefined ? Infinity : sim.digEnd + 0.5 + (i - CREW) * LATE_GAP;
   // where a dwarf can stand while the dig goes on: a tile it could stand on in the finished hold, already dug
   const freeNow = (x, y) => x >= 0 && y >= 0 && x < GW && y < GH && FREE[ti(x, y)] === 1 && sim.dug[ti(x, y)] === 1;
 
@@ -396,6 +401,7 @@ export function makeLife(k, look, world) {
    */
   function stepArrive(w, t, dt) {
     w.moving = false;
+    if (w.at === Infinity) w.at = arriveAt(w.d.id); // a latecomer: its moment is set once the dig is done
     if (t < w.at) return;
     w.hidden = false;
     w.onSurface = true;
@@ -444,6 +450,8 @@ export function makeLife(k, look, world) {
       return;
     }
     if (!w.path) {
+      // the crew is full: stroll a few steps about the dug part and look again
+      if (sim.dw.filter(atWork).length >= CREW) return loiter(w);
       const job = chooseDig(w);
       if (!job) {
         w.wait = sim.drng.range(0.8, 1.6); // nothing to dig within reach just now
@@ -454,6 +462,7 @@ export function makeLife(k, look, world) {
         // Far off: head that way without claiming it, so a dwarf nearer can take it meanwhile, and look again on
         // arrival (a far claim would leave the rock idle for the whole walk).
         w.task = null;
+        w.heading = true;
         w.path = job.path.slice(0, CLAIM_STEPS + 1);
         w.pi = 1;
         return;
@@ -465,12 +474,61 @@ export function makeLife(k, look, world) {
         w.pi = 1;
         return;
       }
-    } else if (!walk(w, dt, 34 * w.d.g.speed)) return;
-    if (!w.task) return; // only heading closer: the next step looks for rock again
+    } else if (!walk(w, dt, (w.loitering ? 14 : 34) * w.d.g.speed)) return;
+    if (!w.task) {
+      // only heading closer: the next step looks for rock again; or done strolling: a pause first
+      w.heading = false;
+      if (w.loitering) (w.loitering = false), (w.wait = sim.drng.range(0.8, 2.4));
+      return;
+    }
     // at the rock: dig it, facing it
     const c = w.task[0] % GW;
     w.dig = { tiles: w.task, until: t + TILE_S * w.task.length, face: c > w.tx ? 1 : c < w.tx ? -1 : w.dir };
     w.task = null;
+  }
+  // at the dig: digging, or on the way to rock it has claimed (or is heading for)
+  const atWork = (w) => w.mode === 'dig' && (w.dig || w.task || w.heading);
+  /** A dwarf with no place in the crew: a few steps to somewhere near over the dug floor, slowly, or a pause. */
+  function loiter(w) {
+    const start = ti(w.tx, w.ty),
+      reach = [];
+    stamp++;
+    SEEN[start] = stamp;
+    PREV[start] = -1;
+    DEPTH[start] = 0;
+    let head = 0,
+      tail = 0;
+    QUEUE[tail++] = start;
+    while (head < tail) {
+      const n = QUEUE[head++],
+        x = n % GW,
+        y = (n / GW) | 0;
+      if (DEPTH[n] >= 2) reach.push(n);
+      if (DEPTH[n] >= 6) continue;
+      for (let dy = -1; dy <= 1; dy++)
+        for (let dx = -1; dx <= 1; dx++) {
+          if (!dx && !dy) continue;
+          const nx = x + dx,
+            ny = y + dy;
+          if (!freeNow(nx, ny) || (dx && dy && (!freeNow(x + dx, y) || !freeNow(x, y + dy)))) continue;
+          const m = ti(nx, ny);
+          if (SEEN[m] === stamp) continue;
+          SEEN[m] = stamp;
+          PREV[m] = n;
+          DEPTH[m] = DEPTH[n] + 1;
+          QUEUE[tail++] = m;
+        }
+    }
+    if (!reach.length || sim.drng.next() < 0.3) {
+      w.wait = sim.drng.range(0.8, 2);
+      return;
+    }
+    const path = [];
+    for (let p = pick(reach); p >= 0; p = PREV[p]) path.push([p % GW, (p / GW) | 0]);
+    w.path = path.reverse();
+    w.pi = 1;
+    w.task = null;
+    w.loitering = true;
   }
   /** One dwarf, a moment later. */
   function stepDwarf(w, t, dt) {
@@ -584,7 +642,7 @@ export function makeLife(k, look, world) {
       // seconds (rock with nowhere to stand beside it), or the dig has run far too long.
       if (sim.digEnd === undefined && t > T.dig[0] + 2) {
         if (sim.dw.some((w) => w.dig || w.task)) sim.busyAt = t;
-        if (t - (sim.busyAt || t) > 3 || t > T.dig[0] + DIG_S * 3 + 60) finishAll(t);
+        if (t - (sim.busyAt || t) > 3 || t > T.dig[0] + DIG_CAP) finishAll(t);
       }
       // a sleeper breathes out a z now and then; each rises in pulses and fades
       for (const w of sim.dw)
@@ -607,5 +665,5 @@ export function makeLife(k, look, world) {
       });
   }
 
-  return { sim, step, DWARVES, RATE, itemAt, WALK, FROM, DIG_S, TILE_S, PLANNED };
+  return { sim, step, DWARVES, RATE, itemAt, WALK, FROM, DIG_S, DIG_CAP, TILE_S, PLANNED, CREW };
 }

@@ -149,7 +149,7 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
   // The arrival lasts as long as the first dwarf's walk over the grass to the gate. How long the dig lasts is up to the
   // dwarves: it stays open (DIG_OPEN) until they have dug the last tile, and then everything after it is laid out.
   const stage = (key) => STAGES.find((s) => s[0] === key),
-    DIG_OPEN = 600;
+    DIG_OPEN = 9000;
   stage('embark')[1] = clamp(Math.abs(world.GATE_X - life.FROM) / life.WALK + 0.4, 2, 10);
   lay();
   let digLaid = false;
@@ -186,7 +186,7 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
    * known: for a page that starts with the hold already built. Returns that moment's frame.
    */
   function settle() {
-    const cap = Math.round((T.dig[0] + life.DIG_S * 3 + 40) * FPS);
+    const cap = Math.round((T.dig[0] + life.DIG_CAP + 2) * FPS);
     while (!digLaid && sim.f < cap) advance(sim.f + 1);
     return Math.round(T.life[0] * FPS);
   }
