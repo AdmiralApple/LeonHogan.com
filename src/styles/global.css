@@ -80,11 +80,35 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+/* ---------- The living background ----------
+   A dwarf hold plays in a canvas fixed behind the page (Base.astro mounts it from public/hold). The body is see-through
+   so it shows; the veil over it, the page's own colour at some strength, keeps text readable. Raise --hold-veil to
+   calm it down, lower it to see more of the hold. */
+:root {
+  --hold-veil: color-mix(in srgb, var(--bg) 58%, transparent);
+}
+:root[data-theme='dark'] {
+  --hold-veil: color-mix(in srgb, var(--bg) 38%, transparent);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --hold-veil: color-mix(in srgb, var(--bg) 38%, transparent);
+  }
+}
+.hold-veil {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--hold-veil);
 }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 1.0625rem;
@@ -154,6 +178,19 @@ p {
   max-width: var(--wrap);
   margin: 0 auto;
   padding-inline: clamp(16px, 4vw, 32px);
+}
+
+/* Pages that are mostly reading (posts, game pages, lists, about) sit on a frosted panel over the living background,
+   so long text never runs over the busy rooms behind it. */
+main > .wrap.section,
+main > article.wrap {
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-block: clamp(16px, 4vw, 40px);
+  width: calc(100% - 2 * clamp(8px, 2vw, 24px));
 }
 
 .section {

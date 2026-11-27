@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync-reviews": "node scripts/sync-reviews.mjs"
+    "sync-reviews": "node scripts/sync-reviews.mjs",
+    "sync-hold": "node scripts/sync-hold.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",

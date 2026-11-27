@@ -52,6 +52,17 @@ const ogImage = image ? new URL(image, Astro.site).toString() : undefined;
     </script>
   </head>
   <body>
+    <!-- The living background: a dwarf hold, built and played in a worker (public/hold, see its README). mode 'scroll'
+         makes it as deep as the page, scrolling down with it; 'fixed' keeps a window-sized hold still behind the page.
+         No seed is given, so every page load digs a new hold (add seed: 'some-words' to keep one), and intro: true
+         shows it made each time: the seed's grey noise, the rock, the caverns, then the dwarves arriving and digging
+         down from the gate ('once' would show it on the first page of a visit only; false, never). The veil over it
+         keeps the page readable; its strength is --hold-veil in global.css. -->
+    <div class="hold-veil" aria-hidden="true"></div>
+    <script is:inline type="module">
+      import { mountHoldBackground } from '/hold/background.js';
+      mountHoldBackground({ mode: 'scroll', scale: 2, intro: true });
+    </script>
     <a class="skip" href="#main">Skip to content</a>
     <Header />
     <main id="main">

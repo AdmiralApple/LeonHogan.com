@@ -164,7 +164,7 @@ const completed = allReviews.filter((r) => r.status === 'Completed').length;
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 25%, transparent);
   }
   .band {
-    background: var(--bg-sunken);
+    background: color-mix(in srgb, var(--bg-sunken) 55%, transparent); /* the hold shows through */
     border-block: 1px solid var(--line);
   }
   .posts {
