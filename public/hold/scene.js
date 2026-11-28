@@ -74,7 +74,7 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
     ['strata', 2.8], // the rock condenses out of the noise
     ['caves', 1.6], // caverns open, a lake fills them, magma glows
     ['embark', 2], // trees grow, the gate rises, the first dwarves walk in (as long as the first one's walk: below)
-    ['dig', 600], // the dwarves dig the hold out, rooms furnished as each is finished (as long as it takes them: below)
+    ['dig', 0], // the dwarves dig the hold out, rooms furnished as each is finished (as long as it takes them: below)
     ['furnish', 1.0], // the last things put in place
     ['lights', 1.6], // dark falls underground and the torches are lit
     ['life', 6.0], // the dwarves at work: this stage only holds its caption, as life goes on for ever after it
@@ -149,8 +149,9 @@ export function hold(phrase = 'granite-deep-4', opts = {}) {
   // The arrival lasts as long as the first dwarf's walk over the grass to the gate. How long the dig lasts is up to the
   // dwarves: it stays open (DIG_OPEN) until they have dug the last tile, and then everything after it is laid out.
   const stage = (key) => STAGES.find((s) => s[0] === key),
-    DIG_OPEN = 9000;
+    DIG_OPEN = life.DIG_CAP + 30; // past the moment the dig is finished at once if the dwarves have not done it
   stage('embark')[1] = clamp(Math.abs(world.GATE_X - life.FROM) / life.WALK + 0.4, 2, 10);
+  stage('dig')[1] = DIG_OPEN;
   lay();
   let digLaid = false;
   const sim = life.sim;
